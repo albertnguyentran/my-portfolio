@@ -1,11 +1,9 @@
 import React from 'react'
-import logo from './logo.svg';
-import Sidebar from './components/Sidebar';
-import About from './components/About';
+import Sidebar from '../components/Sidebar';
+import About from '../components/About';
 import styled from 'styled-components';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Link } from "react-router-dom";
-import Home from './pages'
+
+
 
 const ContainerWrapper = styled.div`
   box-sizing: border-box;
@@ -25,11 +23,15 @@ const ContainerWrapper = styled.div`
   font-size: 40px;
 
 `
-
-function App() {
+const Home = () => {
   return (
-    <Home/>
+    <ContainerWrapper>
+        <Sidebar/>
+        <About/>
+    </ContainerWrapper>
   )
 }
 
-export default App;
+export default Home
+
+
