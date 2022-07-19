@@ -3,11 +3,12 @@ var app = express()
 var http = require('http').Server(app)
 var mongoose = require('mongoose')
 var bodyParser = require('body-parser')
+var cors = require('cors')
 
 mongoose.Promise = Promise
 
 app.use(express.static(__dirname))
-
+app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 
@@ -37,9 +38,10 @@ var UserData = new mongoose.Schema({
 
 app.get('/api', (req, res) => {
     console.log('yes')
-    res.send('ok')
+    res.send('o')
 })
 
-app.post('/api', (req, res) => {
-    res.send('h')
+app.post('/api/hello', (req, res) => {
+    res.send({express: 'hello'})
+    console.log('hi')
 })

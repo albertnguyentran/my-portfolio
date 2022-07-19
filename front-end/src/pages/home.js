@@ -23,33 +23,17 @@ const ContainerWrapper = styled.div`
 
 `
 class Home extends React.Component {
-  handleEvent = event => {
-    axios.post('/api', {
-    })
-      .then(res => {
-        console.log(res)
-      })
-      .then(err => {
-        console.log(err)
-      })
-  }
 
   componentDidMount(){
-    axios.post('/api', {
+    axios.get('http://localhost:5000/api').then(res => {
+      console.log(res)
     })
-      .then(res => {
-        console.log(res)
-      })
-      .then(err => {
-        console.log(err)
-      })
   }
+  
   render() {
-
     return (
       <>
           <ContainerWrapper>
-            <button onClick={this.handleEvent}>Click on me</button>
               <Sidebar/>
               <About/>
           </ContainerWrapper>
