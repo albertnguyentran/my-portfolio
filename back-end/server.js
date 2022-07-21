@@ -16,7 +16,7 @@ var server = http.listen(5000, () => {
     console.log('server is listening on port', server.address().port)
 })
 
-var dbUrl = 'mongodb+srv://:@cluster0.jvszexw.mongodb.net/?retryWrites=true&w=majority'
+var dbUrl = 'mongodb+srv://albertnguyentran:Firehead123!@cluster0.jvszexw.mongodb.net/?retryWrites=true&w=majority'
 
 
 mongoose.connect(dbUrl, (err) => {
@@ -37,7 +37,7 @@ var UserData = new mongoose.Schema({
 })
 
 app.get('/api', (req, res) => {
-    console.log('yes')
+    console.log('ye')
     res.send('o')
 })
 

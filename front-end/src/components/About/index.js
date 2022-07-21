@@ -1,9 +1,13 @@
 import React from 'react'
 import { AboutWrapper } from './AboutElements'
-const About = () => {
-  return (
-    <AboutWrapper></AboutWrapper>
-  )
+
+class About extends React.Component {
+
+  render() {
+    return (
+      <AboutWrapper></AboutWrapper>
+    )
+  }
 }
 
 export default About
