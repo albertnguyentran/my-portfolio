@@ -86,7 +86,7 @@ export const HeroLeftWrapper = styled.div`
     flex-grow: 0;
 `
 
-export const HeroRightWrapper = styled.div`
+export const HeroRightWrapper = styled.form`
    box-sizing: border-box;
 
     /* Auto layout */
@@ -107,6 +107,7 @@ export const HeroRightWrapper = styled.div`
     flex: none;
     order: 0;
     flex-grow: 0;
+
 `
 
 export const HeroLeftTitle = styled.div`
@@ -198,3 +199,4 @@ export const HeroRightButtonWrapper = styled.div`
     order: 3;
     flex-grow: 0;
 `
+

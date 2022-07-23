@@ -36,6 +36,11 @@ var UserData = new mongoose.Schema({
 
 })
 
+var Message = mongoose.model('Message', {
+    username: String,
+    password: String
+})
+
 app.get('/api', (req, res) => {
     console.log('ye')
     res.send('o')
@@ -44,4 +49,12 @@ app.get('/api', (req, res) => {
 app.post('/api/hello', (req, res) => {
     res.send({express: 'hello'})
     console.log('hi')
+})
+
+app.post('/api', (req, res) => {
+    console.log(req.body)
+
+    
+    var Login = new Message(req.body)
+    var savedLogin = Login.save()
 })
