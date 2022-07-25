@@ -15,9 +15,18 @@ export default function Hero(){
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post('http://localhost:5000/api', {
+        /*axios.post('http://localhost:5000/api/user', {
             username: user.username,
             password: user.password
+        }).then(res => {
+            console.log(res)
+        })*/
+
+        axios.get('http://localhost:5000/api/user', {
+            params: {
+                username: user.username,
+                password: user.password
+            }
         }).then(res => {
             console.log(res)
         })

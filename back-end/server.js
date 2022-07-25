@@ -16,7 +16,8 @@ var server = http.listen(5000, () => {
     console.log('server is listening on port', server.address().port)
 })
 
-var dbUrl = 'mongodb+srv://albertnguyentran:Firehead123!@cluster0.jvszexw.mongodb.net/?retryWrites=true&w=majority'
+var dbUrl = 'mongodb+srv://albertnguyentran:!Firehead123!@my-portfolio.u56knxk.mongodb.net/?retryWrites=true&w=majority'
+
 
 
 mongoose.connect(dbUrl, (err) => {
@@ -36,10 +37,9 @@ var UserData = new mongoose.Schema({
 
 })
 
-var Message = mongoose.model('Message', {
-    username: String,
-    password: String
-})
+const loginschema = new mongoose.Schema({username: 'string', password: 'string'})
+const Login = mongoose.model('Tank', loginschema)
+
 
 app.get('/api', (req, res) => {
     console.log('ye')
@@ -51,10 +51,20 @@ app.post('/api/hello', (req, res) => {
     console.log('hi')
 })
 
-app.post('/api', (req, res) => {
-    console.log(req.body)
+app.post('/api/user', (req, res) => {
+
+    var userLoginInfo = new Login({username: req.body.username, password: req.body.password})
+    console.log(req.body.username, req.body.password)
+    console.log(userLoginInfo)
+    
+    userLoginInfo.save(function(err) {
+        if(err) return handleError(err)
+    })
+})
+
+app.get('/api/user', (req, res) => {
+    console.log(req.query.username)
+    console.log(req.query.password)
 
     
-    var Login = new Message(req.body)
-    var savedLogin = Login.save()
 })
