@@ -16,7 +16,7 @@ var server = http.listen(5000, () => {
     console.log('server is listening on port', server.address().port)
 })
 
-var dbUrl = 'mongodb+srv://albertnguyentran:!Firehead123!@my-portfolio.u56knxk.mongodb.net/?retryWrites=true&w=majority'
+var dbUrl = 'mongodb+srv://albertnguyentran:!!@my-portfolio.u56knxk.mongodb.net/?retryWrites=true&w=majority'
 
 
 
@@ -66,5 +66,5 @@ app.get('/api/user', (req, res) => {
     console.log(req.query.username)
     console.log(req.query.password)
 
-    
+
 })
