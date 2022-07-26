@@ -38,7 +38,7 @@ var UserData = new mongoose.Schema({
 })
 
 const loginschema = new mongoose.Schema({username: 'string', password: 'string'})
-const Login = mongoose.model('Tank', loginschema)
+const Login = mongoose.model('Login', loginschema)
 
 
 app.get('/api', (req, res) => {
