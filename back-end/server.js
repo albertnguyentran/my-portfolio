@@ -43,8 +43,7 @@ const UserData = new mongoose.Schema({
 
 
 app.get('/api', (req, res) => {
-    console.log('ye')
-    res.send('o')
+
 })
 
 app.post('/api/hello', (req, res) => {
@@ -74,7 +73,7 @@ app.post('/api/register', async (req, res) => {
 
         //userInfo.save()
 
-        return res.json({status: 'ok'})
+        return res.json({status: 200})
 
     } catch (err) {
         res.sendStatus(500)
@@ -97,23 +96,34 @@ app.post('/api/login', async (req, res) => {
         const token = jwt.sign(
             {
                 username: user.username,
-                email: user.email
+                password: user.password
 
             }, 'secret'
 
         )
         
-        return res.json({status: 'works', user: token})
+        return res.json({status: 200, user: token})
         
     } else {
-        return res.json({status: '500', user: false})
+        return res.json({status: 500, user: false})
 
     }
 })
 
-app.get('/api/user', (req, res) => {
-    console.log(req.query.username)
-    console.log(req.query.password)
+app.get('/api/user', async (req, res) => {
+   
+
+    const user = await UserLoginModel.findOne({
+        username: req.query.username,
+        password: req.query.password
+    })
+
+    if (user) {
+        console.log(user)
+        return (user)
+    } else {
+        console.log('not found')
+    }
 
 
 })

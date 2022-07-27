@@ -41,8 +41,6 @@ export default function Hero(){
             username: user.username,
             password: user.password,
             email: user.email
-        }).then(res => {
-            console.log(res)
         })
 
         usernameRef.current.value = ''
@@ -52,12 +50,12 @@ export default function Hero(){
         console.log(user.username)
         console.log(user.password)
 
-        const data = await response
+        
 
-        console.log(data)
+        console.log(response)
 
-        if (data.status === 'ok') {
-            navigate.push('/signin')
+        if (response.data.status === 200) {
+            navigate('/signin')
         } 
     }
 

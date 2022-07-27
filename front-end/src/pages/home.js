@@ -27,7 +27,17 @@ const ContainerWrapper = styled.div`
 const Home = () => {
 
   const navigate = useNavigate()
-
+  const token = localStorage.getItem('token')
+  const user = jwt.decode(token)
+  
+  axios.get('http://localhost:5000/api/user', {
+            params: {
+                username: user.username,
+                password: user.password,
+            }
+        }).then(res => {
+            console.log(res)
+        })
 
   async function populateData() {
     const data = await fetch('api/user/data', {
@@ -39,7 +49,6 @@ const Home = () => {
 
   useEffect(() => {
     
-    const token = localStorage.getItem('token')
     if(token) {
       const user = jwt.decode(token)
       if(!user) {
@@ -50,7 +59,10 @@ const Home = () => {
       }
     }
   })
+
   
+  
+
   return (
       <>
           <ContainerWrapper>

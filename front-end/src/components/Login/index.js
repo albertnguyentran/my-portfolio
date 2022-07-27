@@ -1,9 +1,12 @@
 import React, {useState, useRef} from 'react'
 import { LoginBoxContainer, LoginContainer, LoginTextbox, LoginInputWrapper } from './LoginElements'
 import axios from "axios"
+import { useNavigate } from 'react-router-dom'
 
 export default function Login(){
 
+    const navigate = useNavigate()
+    
     const [user, setUser] = useState({username: '', password: '', email: ''})
     const usernameRef = useRef(null)
     const passwordRef = useRef(null)
@@ -17,30 +20,27 @@ export default function Login(){
     async function handleSubmit(event) {
         event.preventDefault();
      
-        
+
         const response = await axios.post('http://localhost:5000/api/login', {
             username: user.username,
             password: user.password,
-        }).then(res => {
-            console.log(res)
         })
 
-        const data = await response.json
-        console.log(data)
-
-        if (data.user) {
-            alert('login successful')
-            window.location.href = '/dashboard'
-        } else {
-            alert('no')
-        }
-        console.log(data)
+        console.log(response)
+        console.log(response.data.user)
 
         usernameRef.current.value = ''
         passwordRef.current.value = ''
 
         console.log(user.username)
         console.log(user.password)
+
+        if (response.data.user) {
+            localStorage.setItem('token', response.data.user)
+            navigate('/dashboard')
+        } else {
+            alert('account not found')
+        }
     }
 
 
