@@ -1,8 +1,10 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Sidebar from '../components/Sidebar';
 import About from '../components/About';
 import styled from 'styled-components';
 import axios from 'axios';
+import jwt from 'jsonwebtoken'
+import { useNavigate } from 'react-router-dom';
 
 const ContainerWrapper = styled.div`
   box-sizing: border-box;
@@ -22,16 +24,34 @@ const ContainerWrapper = styled.div`
   font-size: 40px;
 
 `
-class Home extends React.Component {
+const Home = () => {
 
-  componentDidMount(){
-    axios.get('http://localhost:5000/api').then(res => {
-      console.log(res)
+  const navigate = useNavigate()
+
+
+  async function populateData() {
+    const data = await fetch('api/user/data', {
+      headers: {
+        'x-access-token': localStorage.getItem('token')
+      }
     })
-  }
+    }
+
+  useEffect(() => {
+    
+    const token = localStorage.getItem('token')
+    if(token) {
+      const user = jwt.decode(token)
+      if(!user) {
+        localStorage.removeItem('token')
+        navigate.replace('/signin')
+      } else {
+        populateData()
+      }
+    }
+  })
   
-  render() {
-    return (
+  return (
       <>
           <ContainerWrapper>
               <Sidebar/>
@@ -40,7 +60,6 @@ class Home extends React.Component {
       </>    
     )
   }
-}
 
 export default Home
 

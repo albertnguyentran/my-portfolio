@@ -2,8 +2,11 @@ import React, {useState, useRef} from 'react'
 import {HeroContainer, HeroContainerLeft, HeroContainerRight, HeroLeftButtonWrapper, HeroLeftSecondary, HeroLeftTitle, HeroLeftWrapper, HeroRightButtonWrapper, HeroRightInput
 ,HeroRightTitle, HeroRightWrapper, HeroUsernameInput, HeroSubmitInput} from './HeroElements'
 import axios from "axios"
+import {useNavigate} from 'react-router-dom'
+
 export default function Hero(){
 
+    const navigate = useNavigate()
     const [user, setUser] = useState({username: '', password: '', email: ''})
     const usernameRef = useRef(null)
     const passwordRef = useRef(null)
@@ -15,7 +18,7 @@ export default function Hero(){
     };
 
 
-    const handleSubmit = (event) => {
+    async function handleSubmit(event){
         event.preventDefault();
         /*axios.post('http://localhost:5000/api/user', {
             username: user.username,
@@ -34,7 +37,7 @@ export default function Hero(){
             console.log(res)
         })*/
 
-        axios.post('http://localhost:5000/api/register', {
+        const response = await axios.post('http://localhost:5000/api/register', {
             username: user.username,
             password: user.password,
             email: user.email
@@ -48,6 +51,14 @@ export default function Hero(){
 
         console.log(user.username)
         console.log(user.password)
+
+        const data = await response
+
+        console.log(data)
+
+        if (data.status === 'ok') {
+            navigate.push('/signin')
+        } 
     }
 
     return (
