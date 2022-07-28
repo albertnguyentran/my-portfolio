@@ -26,14 +26,11 @@ export default function Login(){
             password: user.password,
         })
 
-        console.log(response)
-        console.log(response.data.user)
 
         usernameRef.current.value = ''
         passwordRef.current.value = ''
 
-        console.log(user.username)
-        console.log(user.password)
+        console.log('Login Page', user.username, user.password)
 
         if (response.data.user) {
             localStorage.setItem('token', response.data.user)

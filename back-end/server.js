@@ -1,3 +1,4 @@
+//---
 const express = require('express')
 const app = express()
 const http = require('http').Server(app)
@@ -7,8 +8,7 @@ const cors = require('cors')
 const UserLoginModel = require('./models/user.model')
 const jwt = require('jsonwebtoken')
 
-mongoose.Promise = Promise
-
+//---
 app.use(express.static(__dirname))
 app.use(cors())
 app.use(bodyParser.json())
@@ -18,29 +18,15 @@ const server = http.listen(5000, () => {
     console.log('server is listening on port', server.address().port)
 })
 
+///---
 const dbUrl = 'mongodb+srv://albertnguyentran:Firehead123!@my-portfolio.u56knxk.mongodb.net/?retryWrites=true&w=majority'
-
-
-
+mongoose.Promise = Promise
 mongoose.connect(dbUrl, (err) => {
     console.log('mongo db connection', err)
 })
 
-const UserData = new mongoose.Schema({
-    username: String,
-    password: String,
-    portfolio: {
-        investments: {
-            ticker:  String,
-            date: String,
-            amount: String
-        }
-    }
 
-})
-
-
-
+///Endpoints
 
 app.get('/api', (req, res) => {
 
@@ -71,7 +57,7 @@ app.post('/api/register', async (req, res) => {
                 email: req.body.email,
             })
 
-        //userInfo.save()
+        userInfo.save()
 
         return res.json({status: 200})
 

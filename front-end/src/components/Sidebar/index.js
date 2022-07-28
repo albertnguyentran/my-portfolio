@@ -1,13 +1,14 @@
 import React from 'react'
 import { SidebarContainer, SidebarTitleLogoWrapper, SidebarTitleTextWrapper, SidebarTitleWrapper, SidebarTextTextWrapper, SidebarTextTitleWrapper, SidebarTextWrapper } from './SidebarElements'
 
-class Sidebar extends React.Component {
+export default function Sidebar(props){
 
-  render () {
+ 
     return (
       <SidebarContainer>
           <SidebarTitleWrapper>
               <SidebarTitleTextWrapper>PORTFOLIO</SidebarTitleTextWrapper>
+              <div>{props.name}</div>
               <SidebarTitleLogoWrapper></SidebarTitleLogoWrapper>
           </SidebarTitleWrapper>
 
@@ -25,7 +26,5 @@ class Sidebar extends React.Component {
 
       </SidebarContainer>
     )
-  }
+  
 }
-
-export default Sidebar
