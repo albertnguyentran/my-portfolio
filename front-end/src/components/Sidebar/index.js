@@ -1,14 +1,13 @@
 import React from 'react'
 import { SidebarContainer, SidebarTitleLogoWrapper, SidebarTitleTextWrapper, SidebarTitleWrapper, SidebarTextTextWrapper, SidebarTextTitleWrapper, SidebarTextWrapper } from './SidebarElements'
 
-export default function Sidebar(props){
+export default function Sidebar(){
 
  
     return (
       <SidebarContainer>
           <SidebarTitleWrapper>
               <SidebarTitleTextWrapper>PORTFOLIO</SidebarTitleTextWrapper>
-              <div>{props.name}</div>
               <SidebarTitleLogoWrapper></SidebarTitleLogoWrapper>
           </SidebarTitleWrapper>
 

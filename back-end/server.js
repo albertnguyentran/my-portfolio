@@ -55,6 +55,9 @@ app.post('/api/register', async (req, res) => {
                 username: req.body.username,
                 password: req.body.password,
                 email: req.body.email,
+                portfolio: {
+                    stocks: req.body.stocks
+                }
             })
 
         userInfo.save()
@@ -77,12 +80,18 @@ app.post('/api/login', async (req, res) => {
         password: req.body.password
     })
     
+    console.log('here')
+    console.log(user.portfolio)
+    console.log(user.portfolio.stocks)
+
     if (user) {
 
         const token = jwt.sign(
             {
                 username: user.username,
-                password: user.password
+                password: user.password,
+                portfolio: user.portfolio,
+                stocks: user.portfolio.stocks
 
             }, 'secret'
 

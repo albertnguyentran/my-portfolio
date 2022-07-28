@@ -1,13 +1,15 @@
 import React from 'react'
-import { AboutWrapper } from './AboutElements'
+import { AboutWrapper, AboutHeader, AboutSubheader, AboutTextbox } from './AboutElements'
 
-class About extends React.Component {
+export default function About() {
 
-  render() {
-    return (
-      <AboutWrapper></AboutWrapper>
-    )
-  }
+  return (
+    <AboutWrapper>
+      <AboutHeader>About</AboutHeader>
+      <AboutSubheader></AboutSubheader>
+      <AboutTextbox></AboutTextbox>
+      <AboutSubheader></AboutSubheader>
+      <AboutTextbox></AboutTextbox>
+    </AboutWrapper>
+  )
 }
-
-export default About

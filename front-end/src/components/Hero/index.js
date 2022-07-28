@@ -20,39 +20,19 @@ export default function Hero(){
 
     async function handleSubmit(event){
         event.preventDefault();
-        /*axios.post('http://localhost:5000/api/user', {
-            username: user.username,
-            password: user.password
-        }).then(res => {
-            console.log(res)
-        })*/
-
-        /*axios.get('http://localhost:5000/api/register', {
-            params: {
-                username: user.username,
-                password: user.password,
-                email: user.email
-            }
-        }).then(res => {
-            console.log(res)
-        })*/
 
         const response = await axios.post('http://localhost:5000/api/register', {
             username: user.username,
             password: user.password,
-            email: user.email
+            email: user.email,
+            stocks: [1, 2, 3, 4]
         })
 
         usernameRef.current.value = ''
         passwordRef.current.value = ''
         emailRef.current.value = ''
 
-        console.log(user.username)
-        console.log(user.password)
-
-        
-
-        console.log(response)
+        console.log('Hero Index.js', response)
 
         if (response.data.status === 200) {
             navigate('/signin')

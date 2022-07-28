@@ -8,7 +8,7 @@ export const SidebarContainer = styled.div`
     gap: 68px;
 
     width: 441px;
-    height: 1134px;
+    height: 100%;
 
     background: #FFFFFF;
 

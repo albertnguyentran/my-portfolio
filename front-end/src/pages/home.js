@@ -16,8 +16,8 @@ const ContainerWrapper = styled.div`
   padding: 0px;
 
   position: relative;
-  width: 1920px;
-  height: 1134px;
+  width: 100%;
+  height: 100vh;
 
   background: #F8F4FA;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

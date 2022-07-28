@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import { LoginBoxContainer, LoginContainer, LoginTextbox, LoginInputWrapper } from './LoginElements'
 import axios from "axios"
 import { useNavigate } from 'react-router-dom'
@@ -30,11 +30,12 @@ export default function Login(){
         usernameRef.current.value = ''
         passwordRef.current.value = ''
 
-        console.log('Login Page', user.username, user.password)
+        console.log('Login Page', response)
 
         if (response.data.user) {
             localStorage.setItem('token', response.data.user)
             navigate('/dashboard')
+
         } else {
             alert('account not found')
         }
