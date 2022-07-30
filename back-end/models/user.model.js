@@ -1,5 +1,7 @@
+//Require mongoose
 const mongoose = require('mongoose')
 
+//Create mongoose schema
 const User = new mongoose.Schema(
     {
         username: {type: String, required: true}, 
@@ -7,11 +9,20 @@ const User = new mongoose.Schema(
         email: {type: String, required: true, unique: true},
 
         portfolio: {
-            stocks: [String]
+            portfolios: [{
+                stocks: {
+                    ticker: [String],
+                    amount: [Number],
+                    price: [Number],
+                    date: [String],
+                }
+            }]
         }
     }
 )
 
+//Create UserLoginModel using User mongoose schema
 const UserLoginModel = mongoose.model('UserLoginModel', User)
 
+//Export model
 module.exports = UserLoginModel

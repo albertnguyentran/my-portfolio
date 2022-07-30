@@ -1,4 +1,4 @@
-//---
+//Require all middleware and mongoose models
 const express = require('express')
 const app = express()
 const http = require('http').Server(app)
@@ -8,7 +8,7 @@ const cors = require('cors')
 const UserLoginModel = require('./models/user.model')
 const jwt = require('jsonwebtoken')
 
-//---
+//Create server
 app.use(express.static(__dirname))
 app.use(cors())
 app.use(bodyParser.json())
@@ -18,7 +18,7 @@ const server = http.listen(5000, () => {
     console.log('server is listening on port', server.address().port)
 })
 
-///---
+//Connect mongoose to mongodb
 const dbUrl = 'mongodb+srv://albertnguyentran:F!@my-portfolio.u56knxk.mongodb.net/?retryWrites=true&w=majority'
 mongoose.Promise = Promise
 mongoose.connect(dbUrl, (err) => {
@@ -26,17 +26,37 @@ mongoose.connect(dbUrl, (err) => {
 })
 
 
-///Endpoints
-
+///------------Endpoints
+//Get requests
 app.get('/api', (req, res) => {
 
 })
 
-app.post('/api/hello', (req, res) => {
-    res.send({express: 'hello'})
-    console.log('hi')
+app.get('/api/user', async (req, res) => {
+   
+    try {
+        const user = await UserLoginModel.findOne({
+            username: req.query.username,
+            password: req.query.password
+        })
+
+        if (user) {
+            console.log(user)
+            return (user)
+        } else {
+            console.log('not found')
+        }
+
+    } catch (err) {
+        console.log(err)
+    }
+
+
 })
 
+//Post requests
+
+//Create object of user request and store it to mongodb using mongoose
 app.post('/api/register', async (req, res) => {
 
     /*var userLoginInfo = new Login({username: req.body.username, password: req.body.password})
@@ -47,19 +67,41 @@ app.post('/api/register', async (req, res) => {
         if(err) return handleError(err)
     })*/
 
-    console.log(req.body.username)
+    console.log('/api/register', req.body.username)
 
     try {
         var userInfo = await new UserLoginModel(
             {
+
+                /*username: user.username,
+                password: user.password,
+                email: user.email,
+                portfolios: [pa, pb, pc, pd],
+                stocks: [1, 2, 3, 4],
+                ticker: [t1, t2, t3, t4],
+                amount: [10, 20, 30, 40],
+                date: [11, 22, 33, 44]*/
+
+                /* portfolio: {
+                portfolios: [{
+                    stocks: {
+                        ticker: [String],
+                        amount: [Number],
+                        price: [Number],
+                        date: [String],
+                    }
+                }]
+            }*/
+
                 username: req.body.username,
                 password: req.body.password,
                 email: req.body.email,
-                portfolio: {
-                    stocks: req.body.stocks
-                }
-            })
 
+                
+            })
+        
+
+        //Save data to mongodb
         userInfo.save()
 
         return res.json({status: 200})
@@ -72,53 +114,39 @@ app.post('/api/register', async (req, res) => {
 
 })
 
+//Verify user in mongodb, return JWT which can be decoded in the front end to display the rest of the data
 app.post('/api/login', async (req, res) => {
-    console.log(req.body.username, req.body.password)
+    console.log('api/login', req.body.username, req.body.password)
 
-    const user = await UserLoginModel.findOne({
-        username: req.body.username,
-        password: req.body.password
-    })
-    
-    console.log('here')
-    console.log(user.portfolio)
-    console.log(user.portfolio.stocks)
-
-    if (user) {
-
-        const token = jwt.sign(
-            {
-                username: user.username,
-                password: user.password,
-                portfolio: user.portfolio,
-                stocks: user.portfolio.stocks
-
-            }, 'secret'
-
-        )
+    try {
+        const user = await UserLoginModel.findOne({
+            username: req.body.username,
+            password: req.body.password
+        })
         
-        return res.json({status: 200, user: token})
+        console.log('/api/login', user.portfolio, user.portfolio.stocks)
         
-    } else {
-        return res.json({status: 500, user: false})
+        if (user) {
 
+            const token = jwt.sign(
+                {
+                    username: user.username,
+                    password: user.password,
+                    portfolio: user.portfolio,
+                    stocks: user.portfolio.stocks
+
+                }, 'secret'
+
+            )
+            
+            return res.json({status: 200, user: token})
+            
+        } else {
+            return res.json({status: 500, user: false})
+
+        }
+    } catch (err) {
+        console.log(err)
     }
 })
 
-app.get('/api/user', async (req, res) => {
-   
-
-    const user = await UserLoginModel.findOne({
-        username: req.query.username,
-        password: req.query.password
-    })
-
-    if (user) {
-        console.log(user)
-        return (user)
-    } else {
-        console.log('not found')
-    }
-
-
-})

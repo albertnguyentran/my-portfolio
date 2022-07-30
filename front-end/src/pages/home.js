@@ -8,8 +8,6 @@ import { useNavigate } from 'react-router-dom';
 
 const ContainerWrapper = styled.div`
   box-sizing: border-box;
-
-  /* Auto layout */
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -40,17 +38,21 @@ const Home = () => {
         })
 
   async function populateData() {
-    const data = await fetch('api/user/data', {
-      headers: {
-        'x-access-token': localStorage.getItem('token')
-      }
-    })
+    try {
+      const data = await fetch('api/user/data', {
+        headers: {
+          'x-access-token': localStorage.getItem('token')
+        }
+      })
+     } catch (err) {
+      console.log(err)
+    }
     }
 
   useEffect(() => {
-    
-    if(token) {
-      const user = jwt.decode(token)
+      if(token) {
+        const user = jwt.decode(token)
+
       if(!user) {
         localStorage.removeItem('token')
         navigate.replace('/signin')

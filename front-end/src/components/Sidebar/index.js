@@ -23,6 +23,12 @@ export default function Sidebar(){
               <SidebarTextTextWrapper>Yo</SidebarTextTextWrapper>
           </SidebarTextWrapper>
 
+          <SidebarTextWrapper>
+            <SidebarTextTitleWrapper></SidebarTextTitleWrapper>
+            <SidebarTextTitleWrapper></SidebarTextTitleWrapper>
+            <SidebarTextTitleWrapper></SidebarTextTitleWrapper>
+          </SidebarTextWrapper>
+
       </SidebarContainer>
     )
   

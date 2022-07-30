@@ -19,25 +19,29 @@ export default function Login(){
 
     async function handleSubmit(event) {
         event.preventDefault();
-     
+    
+        try {
+            const response = await axios.post('http://localhost:5000/api/login', {
+                username: user.username,
+                password: user.password,
+            })
 
-        const response = await axios.post('http://localhost:5000/api/login', {
-            username: user.username,
-            password: user.password,
-        })
 
+            usernameRef.current.value = ''
+            passwordRef.current.value = ''
 
-        usernameRef.current.value = ''
-        passwordRef.current.value = ''
+            console.log('Login Page', response)
 
-        console.log('Login Page', response)
+            if (response.data.user) {
+                localStorage.setItem('token', response.data.user)
+                navigate('/dashboard')
 
-        if (response.data.user) {
-            localStorage.setItem('token', response.data.user)
-            navigate('/dashboard')
+            } else {
+                alert('account not found')
+            }
 
-        } else {
-            alert('account not found')
+        } catch (err) {
+            console.log(err)
         }
     }
 
