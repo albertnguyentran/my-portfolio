@@ -19,7 +19,7 @@ const server = http.listen(5000, () => {
 })
 
 //Connect mongoose to mongodb
-const dbUrl = 'mongodb+srv://albertnguyentran:F!@my-portfolio.u56knxk.mongodb.net/?retryWrites=true&w=majority'
+const dbUrl = 'mongodb+srv://albertnguyentran:Firehead123!@my-portfolio.u56knxk.mongodb.net/?retryWrites=true&w=majority'
 mongoose.Promise = Promise
 mongoose.connect(dbUrl, (err) => {
     console.log('mongo db connection', err)
