@@ -10,12 +10,12 @@ const User = new mongoose.Schema(
 
         portfolio: {
             portfolios: [{
-                stocks: {
+                stocks: [{
                     ticker: [String],
                     amount: [Number],
                     price: [Number],
                     date: [String],
-                }
+                }]
             }]
         }
     }

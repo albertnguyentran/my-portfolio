@@ -31,7 +31,7 @@ export default function Login(){
             passwordRef.current.value = ''
 
             console.log('Login Page', response)
-
+        
             if (response.data.user) {
                 localStorage.setItem('token', response.data.user)
                 navigate('/dashboard')

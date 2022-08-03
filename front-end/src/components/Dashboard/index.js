@@ -7,17 +7,18 @@ export default function Dashboard(props){
 
     
     var user = props.user 
-    var arr = user.portfolio.stocks
+    var arr = user.portfolio.portfolios
     var renderedOutput = arr.map(item => <div> {item} </div>)
 
     async function updateData(){
         const postData = await axios.post('http://localhost:5000/api/user/update', {
             portfolios: [{
-
+                
             }]
             
         })
     }
+
     useEffect(() => {
         updateData()
     })
