@@ -5,7 +5,11 @@ const http = require('http').Server(app)
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+
+//Import Models
 const UserLoginModel = require('./models/user.model')
+const StockModel = require('./models/stock.model')
+const PortfolioModel = require('./models/portfolio.model')
 const jwt = require('jsonwebtoken')
 
 //Create server
@@ -73,30 +77,9 @@ app.post('/api/register', async (req, res) => {
         var userInfo = await new UserLoginModel(
             {
 
-                /*username: user.username,
-                password: user.password,
-                email: user.email,
-                portfolios: [pa, pb, pc, pd],
-                stocks: [1, 2, 3, 4],
-                ticker: [t1, t2, t3, t4],
-                amount: [10, 20, 30, 40],
-                date: [11, 22, 33, 44]*/
-
-                /* portfolio: {
-                portfolios: [{
-                    stocks: {
-                        ticker: [String],
-                        amount: [Number],
-                        price: [Number],
-                        date: [String],
-                    }
-                }]
-            }*/
-
                 username: req.body.username,
                 password: req.body.password,
                 email: req.body.email,
-
                 
             })
         
@@ -124,8 +107,8 @@ app.post('/api/login', async (req, res) => {
             password: req.body.password
         })
         
-        console.log('/api/login', user.portfolio, user.portfolio.stocks)
-        
+        console.log('api/login', user)
+
         if (user) {
 
             const token = jwt.sign(
@@ -133,12 +116,19 @@ app.post('/api/login', async (req, res) => {
                     username: user.username,
                     password: user.password,
                     portfolio: user.portfolio,
-                    stocks: user.portfolio.stocks
+                    portfolios: 'A',
+                    stocks: 'b',
+                    ticker: '2',
+                    amount: 40,
+                    price: 45,
+                    date: '4/20/18'
+
 
                 }, 'secret'
 
             )
-            
+
+
             return res.json({status: 200, user: token})
             
         } else {
