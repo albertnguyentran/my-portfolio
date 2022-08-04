@@ -115,19 +115,10 @@ app.post('/api/login', async (req, res) => {
                 {
                     username: user.username,
                     password: user.password,
-                    portfolio: user.portfolio,
-                    portfolios: 'A',
-                    stocks: 'b',
-                    ticker: '2',
-                    amount: 40,
-                    price: 45,
-                    date: '4/20/18'
-
-
+                    portfolio: user.portfolio
                 }, 'secret'
 
             )
-
 
             return res.json({status: 200, user: token})
             

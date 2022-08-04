@@ -5,6 +5,8 @@ const mongoose = require('mongoose')
 const Portfolio = new mongoose.Schema({
     
     portfolioName: [String],
+
+    //How to connect stock.model.js to this?
     stocks: Stock
 
     }
