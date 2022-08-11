@@ -2,21 +2,6 @@
 const mongoose = require('mongoose')
 
 //Create mongoose schema
-const User = new mongoose.Schema(
-    {
-        username: {type: String, required: true}, 
-        password: {type: String, required: true},
-        email: {type: String, required: true, unique: true},
-
-    }
-)
-
-const Portfolio = new mongoose.Schema({
-    
-    portfolioName: String,
-    stocks: [Stock]
-    }
-)
 
 const Stock = new mongoose.Schema({
     
@@ -25,16 +10,29 @@ const Stock = new mongoose.Schema({
     amount: [Number],
     price: [Number]
     
-    }
-)
+    })
+
+const Portfolio = new mongoose.Schema({
+    
+    portfolioName: String,
+    stocks: [Stock]
+
+    })
+
+const User = new mongoose.Schema({
+    
+        username: {type: String, required: true}, 
+        password: {type: String, required: true},
+        email: {type: String, required: true, unique: true},
+        portfolios: {type: Portfolio, unique: true}
+
+    })
+
 
 //Create UserLoginModel using User mongoose schema
-const UserLoginModel = mongoose.model('UserLoginModel', User)
-const PortfolioModel = mongoose.model('PortfolioModel', Portfolio)
-const StockModel = mongoose.model('StockModel', Stock)
+const UserModel = mongoose.model('UserModel', User)
+
 
 
 //Export model
-module.exports = PortfolioModel
-module.exports = UserLoginModel
-module.exports = StockModel
+module.exports = UserModel

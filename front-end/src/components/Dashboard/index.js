@@ -7,7 +7,7 @@ export default function Dashboard(props){
 
     
     var user = props.user 
-    var arr = user.portfolio.portfolios
+    var arr = user.portfolio
     var renderedOutput = arr.map(item => <div> {item} </div>)
 
     async function updateData(){

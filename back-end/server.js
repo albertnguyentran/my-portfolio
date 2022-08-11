@@ -7,9 +7,8 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 
 //Import Models
-const UserLoginModel = require('./models/models')
-const StockModel = require('./models/models')
-const PortfolioModel = require('./models/models')
+const UserModel = require('./models/models')
+
 const jwt = require('jsonwebtoken')
 
 //Create server
@@ -39,7 +38,7 @@ app.get('/api', (req, res) => {
 app.get('/api/user', async (req, res) => {
    
     try {
-        const user = await UserLoginModel.findOne({
+        const user = await UserModel.findOne({
             username: req.query.username,
             password: req.query.password
         })
@@ -74,7 +73,7 @@ app.post('/api/register', async (req, res) => {
     console.log('/api/register', req.body.username)
 
     try {
-        var userInfo = await new UserLoginModel(
+        var userInfo = await new UserModel(
             {
 
                 username: req.body.username,
@@ -102,7 +101,7 @@ app.post('/api/login', async (req, res) => {
     console.log('api/login', req.body.username, req.body.password)
 
     try {
-        const user = await UserLoginModel.findOne({
+        const user = await UserModel.findOne({
             username: req.body.username,
             password: req.body.password
         })
