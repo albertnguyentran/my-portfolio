@@ -7,9 +7,9 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 
 //Import Models
-const UserLoginModel = require('./models/user.model')
-const StockModel = require('./models/stock.model')
-const PortfolioModel = require('./models/portfolio.model')
+const UserLoginModel = require('./models/models')
+const StockModel = require('./models/models')
+const PortfolioModel = require('./models/models')
 const jwt = require('jsonwebtoken')
 
 //Create server
