@@ -5,9 +5,11 @@ import axios from 'axios'
 
 export default function Dashboard(props){
 
-    
     var user = props.user 
-    var arr = user.portfolio
+    console.log('dashboard - index.js')
+    console.log(user.user)
+    console.log(user.user.portfolios[0].stocks[0].ticker)
+    var arr = user.portfolios
     var renderedOutput = arr.map(item => <div> {item} </div>)
 
     async function updateData(){

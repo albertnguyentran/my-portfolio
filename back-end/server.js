@@ -79,6 +79,19 @@ app.post('/api/register', async (req, res) => {
                 username: req.body.username,
                 password: req.body.password,
                 email: req.body.email,
+
+                portfolios: [
+                    {
+                        portfolioName: 'Test',
+                        stocks: [
+                            {
+                                ticker: 'AAPL',
+                                amount: 5,
+                                price: 100
+                            }
+                        ]
+                    }
+                ]
                 
             })
         
@@ -110,14 +123,7 @@ app.post('/api/login', async (req, res) => {
 
         if (user) {
 
-            const token = jwt.sign(
-                {
-                    username: user.username,
-                    password: user.password,
-                    portfolio: user.portfolio
-                }, 'secret'
-
-            )
+            const token = jwt.sign({user}, 'secret')
 
             return res.json({status: 200, user: token})
             

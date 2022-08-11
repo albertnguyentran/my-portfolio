@@ -30,7 +30,7 @@ const Portfolio = () => {
     const token = localStorage.getItem('token')
     const user = jwt.decode(token)
 
-    console.log('here', user)
+    console.log('portfolio.js', user)
 
     return (
       <>
