@@ -88,6 +88,30 @@ app.post('/api/register', async (req, res) => {
                                 ticker: 'AAPL',
                                 amount: 5,
                                 price: 100
+                            },
+
+                            {
+                                ticker: 'GOOGL',
+                                amount: 2,
+                                price: 300
+                            },
+
+                            {
+                                ticker: 'FB',
+                                amount: 4,
+                                price: 200
+                            }
+
+                        ]
+                    },
+
+                    {
+                        portfolioName: 'Test2',
+                        stocks: [
+                            {
+                                ticker: 'MSFT',
+                                amount: 4,
+                                price: 200
                             }
                         ]
                     }
