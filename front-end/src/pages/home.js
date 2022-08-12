@@ -68,7 +68,7 @@ const Home = () => {
   return (
       <>
           <ContainerWrapper>
-              <Sidebar/>
+              <Sidebar user={user}/>
               <About/>
           </ContainerWrapper>
       </>    

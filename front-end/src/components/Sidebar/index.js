@@ -1,20 +1,25 @@
 import React, {useEffect} from 'react'
 import { SidebarContainer, SidebarTitleLogoWrapper, SidebarTitleTextWrapper, SidebarTitleWrapper, SidebarTextTextWrapper, SidebarTextTitleWrapper, SidebarTextWrapper } from './SidebarElements'
-
+import { useNavigate } from 'react-router-dom'
 export default function Sidebar(props){
 
+    const navigate = useNavigate()
+
     var user = props.user
-
-
+    console.log(user.user.portfolios)
     var arr = user.user.portfolios
-    console.log(arr)
 
     /*for (let i = 0; i < arr.length; i++) {
         var renderedOutput = <div> {arr[i].ticker} </div>
     }*/
 
-    //var renderedOutput = arr.map(item => <div> {item.ticker} </div>)
+    var renderedOutput = arr.map(item => <div onClick={handleClick}> {item.portfolioName} </div>)
 
+    const handleClick = e => {
+        alert('aaa')
+        console.log(e.target.value)
+        console.log('a')
+    }
 
     return (
       <SidebarContainer>
@@ -40,6 +45,8 @@ export default function Sidebar(props){
             <SidebarTextTitleWrapper></SidebarTextTitleWrapper>
             <SidebarTextTitleWrapper></SidebarTextTitleWrapper>
           </SidebarTextWrapper>
+
+          {renderedOutput}
 
       </SidebarContainer>
     )
