@@ -35,7 +35,7 @@ const Portfolio = () => {
     return (
       <>
         <ContainerWrapper>
-            <Sidebar></Sidebar>
+            <Sidebar user={user}></Sidebar>
             <Dashboard user={user} ></Dashboard>
         </ContainerWrapper>
       </>    

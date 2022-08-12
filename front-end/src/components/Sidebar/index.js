@@ -1,9 +1,21 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { SidebarContainer, SidebarTitleLogoWrapper, SidebarTitleTextWrapper, SidebarTitleWrapper, SidebarTextTextWrapper, SidebarTextTitleWrapper, SidebarTextWrapper } from './SidebarElements'
 
-export default function Sidebar(){
+export default function Sidebar(props){
 
- 
+    var user = props.user
+
+
+    var arr = user.user.portfolios
+    console.log(arr)
+
+    /*for (let i = 0; i < arr.length; i++) {
+        var renderedOutput = <div> {arr[i].ticker} </div>
+    }*/
+
+    //var renderedOutput = arr.map(item => <div> {item.ticker} </div>)
+
+
     return (
       <SidebarContainer>
           <SidebarTitleWrapper>
