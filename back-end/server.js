@@ -145,9 +145,7 @@ app.post('/api/login', async (req, res) => {
         console.log('api/login', user)
 
         if (user) {
-
             const token = jwt.sign({user}, 'secret')
-
             return res.json({status: 200, user: token})
             
         } else {
@@ -172,8 +170,15 @@ app.get('/api/getdata', async (req, res) => {
             password: password
         })
 
-        res.send(user)
+        console.log(user)
+        
+        if (user) {
+            console.log('a')
+            return res.json({status: 200, user: user})
 
+        } else {
+            return res.json({status: 500, user: false})
+        }
     } catch (err) {
         console.log(err)
     }

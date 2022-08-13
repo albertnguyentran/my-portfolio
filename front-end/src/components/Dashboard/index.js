@@ -4,39 +4,36 @@ import axios from 'axios'
 
 export default function Dashboard(props){
 
-    const [user, userState] = useState(props.user)
+    const [user, setUser] = useState(props.user)
 
-   
+
     useEffect(() => {
-        if (performance.getEntriesByType("navigation")[0].type){
-            async function fetchData(){
-                console.log('a')
-                const userData = await axios.get('http://localhost:5000/api/getdata', {
-                    params: {
-                        username: user.username,
-                        password: user.password,
-                    }
-                })
     
-                userState(userData)
-    
-            }
+        async function fetchData(){
+            const userData = await axios.get('http://localhost:5000/api/getdata', {
+                params: {
+                    username: user.user.username,
+                    password: user.user.password,
+                }
+            })
 
-            fetchData()
+            setUser(userData.data)    
         }
+
+        fetchData()
 
     })
 
-
-    //var renderedOutput = arr.map(item => <div> {item.ticker} </div>)
-    //            {renderedOutput}
-
+    var arr = user.user.portfolios[0].stocks
+    var renderedOutput = arr.map(item => <div> {item.ticker} </div>)
     
 
 
 
     return (
         <DashboardContainer>
+                {renderedOutput}
+
             <StockContainer>
                 <StockWrapper></StockWrapper>
                 <StockWrapper></StockWrapper>

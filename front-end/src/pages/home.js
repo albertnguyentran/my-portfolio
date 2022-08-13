@@ -28,7 +28,7 @@ const Home = () => {
   const token = localStorage.getItem('token')
   const user = jwt.decode(token)
 
-  console.log(user)
+  console.log('hereu', user)
   
   useEffect(() => {
     axios.get('http://localhost:5000/api/login', {
