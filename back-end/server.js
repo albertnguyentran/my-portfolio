@@ -165,14 +165,13 @@ app.get('/api/getdata', async (req, res) => {
         const password = req.query.password
         const portfolioName = req.query.portfolioName
 
-        console.log(username)
         const user = await UserModel.findOne({
             username: username,
             password: password
         })
-        console.log(user)
-        res.send(user)
-        
+
+
+        return user
 
     } catch (err) {
         console.log(err)

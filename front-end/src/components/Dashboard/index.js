@@ -1,45 +1,41 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { DashboardContainer, StockContainer, StockWrapper, HeaderWrapper, GraphContainer, GraphWrapper } from './DashboardElements'
 import axios from 'axios'
 
 export default function Dashboard(props){
 
+    const [User, UserState] = useState(null)
+
     var user = props.user
     var id = props.id
 
-    console.log('dashboard - index.js')
-    console.log(user.user.email)
+    const fetchData = async () => {
+        const userData = await axios.get('http://localhost:5000/api/getdata', {
+            params: {
+                username: user.user.username,
+                password: user.user.password,
+            }
+        })
 
-    var arr = user.user.portfolios[0].stocks
+        console.log('b', userData)
+        UserState(userData)
 
-    /*for (let i = 0; i < arr.length; i++) {
-        var renderedOutput = <div> {arr[i].ticker} </div>
-    }*/
+    }
 
-    console.log(arr)
+    fetchData()
+    console.log('a', User)
+    var arr = User
     var renderedOutput = arr.map(item => <div> {item.ticker} </div>)
+    
+    
 
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const userData = await axios.get('http://localhost:5000/api/getdata', {
-                params: {
-                    username: user.user.username,
-                    password: user.user.password,
-                }
-            })
-        }
-
-        fetchData()
-        console.log('getdata')
-
-    })
 
     return (
         <DashboardContainer>
+            {renderedOutput}
             <StockContainer>
                 <StockWrapper></StockWrapper>
-                {renderedOutput}
                 <StockWrapper></StockWrapper>
 
             </StockContainer>
