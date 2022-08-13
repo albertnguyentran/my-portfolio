@@ -160,6 +160,8 @@ app.post('/api/login', async (req, res) => {
 })
 
 app.get('/api/getdata', async (req, res) => {
+
+
     try {
         const username = req.query.username
         const password = req.query.password
@@ -170,8 +172,7 @@ app.get('/api/getdata', async (req, res) => {
             password: password
         })
 
-
-        return user
+        res.send(user)
 
     } catch (err) {
         console.log(err)
