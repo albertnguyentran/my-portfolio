@@ -4,10 +4,11 @@ import axios from 'axios'
 
 export default function Dashboard(props){
 
-    var user = props.user 
+    var user = props.user
+    var id = props.id
+
     console.log('dashboard - index.js')
-    /*console.log(user.user)
-    console.log(user.user.portfolios[0].stocks[0].ticker)*/
+    console.log(user.user.email)
 
     var arr = user.user.portfolios[0].stocks
 
@@ -19,17 +20,19 @@ export default function Dashboard(props){
     var renderedOutput = arr.map(item => <div> {item.ticker} </div>)
 
 
-    async function updateData(){
-        const postData = await axios.post('http://localhost:5000/api/user/update', {
-            portfolios: [{
-                
-            }]
-            
-        })
-    }
-
     useEffect(() => {
-        updateData()
+        const fetchData = async () => {
+            const userData = await axios.get('http://localhost:5000/api/getdata', {
+                params: {
+                    username: user.user.username,
+                    password: user.user.password,
+                }
+            })
+        }
+
+        fetchData()
+        console.log('getdata')
+
     })
 
     return (

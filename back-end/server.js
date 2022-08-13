@@ -46,6 +46,7 @@ app.get('/api/user', async (req, res) => {
         if (user) {
             console.log(user)
             return (user)
+
         } else {
             console.log('not found')
         }
@@ -53,8 +54,6 @@ app.get('/api/user', async (req, res) => {
     } catch (err) {
         console.log(err)
     }
-
-
 })
 
 //Post requests
@@ -160,3 +159,44 @@ app.post('/api/login', async (req, res) => {
     }
 })
 
+app.get('/api/getdata', async (req, res) => {
+    try {
+        const username = req.query.username
+        const password = req.query.password
+        const portfolioName = req.query.portfolioName
+
+        console.log(username)
+        const user = await UserModel.findOne({
+            username: username,
+            password: password
+        })
+        console.log(user)
+        res.send(user)
+        
+
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+app.get('/api/getportfolio', async (req, res) => {
+    try {
+        const username = req.query.username
+        const password = req.query.password
+        const portfolioName = req.query.portfolioName
+
+        const user = await UserModel.findOne({
+            username: username,
+            password: password
+        })
+
+
+        const portfolio = await UserModel.findOne({
+
+        })
+        
+
+    } catch (err) {
+        console.log(err)
+    }
+})

@@ -27,39 +27,15 @@ const Home = () => {
   const navigate = useNavigate()
   const token = localStorage.getItem('token')
   const user = jwt.decode(token)
-  
-  axios.get('http://localhost:5000/api/user', {
-            params: {
-                username: user.username,
-                password: user.password,
-            }
-        }).then(res => {
-            console.log(res)
-        })
 
-  async function populateData() {
-    try {
-      const data = await fetch('api/user/data', {
-        headers: {
-          'x-access-token': localStorage.getItem('token')
-        }
-      })
-     } catch (err) {
-      console.log(err)
-    }
-    }
-
+  console.log(user)
   useEffect(() => {
-      if(token) {
-        const user = jwt.decode(token)
-
-      if(!user) {
-        localStorage.removeItem('token')
-        navigate.replace('/signin')
-      } else {
-        populateData()
+    axios.get('http://localhost:5000/api/login', {
+      params: {
+        username: user.username,
+        password: user.password,
       }
-    }
+    })
   })
 
   
