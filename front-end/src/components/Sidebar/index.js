@@ -11,6 +11,7 @@ export default function Sidebar(props){
     var arr = user.user.portfolios
 
     var renderedOutput = arr.map(item => <div> {item.portfolioName} </div>)
+    
     const handleClick = e => {
         console.log(e.target.value)  
     }

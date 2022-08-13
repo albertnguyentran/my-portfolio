@@ -29,6 +29,7 @@ const Home = () => {
   const user = jwt.decode(token)
 
   console.log(user)
+  
   useEffect(() => {
     axios.get('http://localhost:5000/api/login', {
       params: {
