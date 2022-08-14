@@ -24,12 +24,13 @@ const ContainerWrapper = styled.div`
 `
 const Home = () => {
 
-  const navigate = useNavigate()
   const token = localStorage.getItem('token')
   const user = jwt.decode(token)
-
-  console.log('hereu', user)
   
+  if (!token) {
+    alert('error please sign in')
+  }
+
   useEffect(() => {
     axios.get('http://localhost:5000/api/login', {
       params: {

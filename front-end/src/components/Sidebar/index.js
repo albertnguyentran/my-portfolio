@@ -3,13 +3,12 @@ import { SidebarContainer, SidebarTitleLogoWrapper, SidebarTitleTextWrapper, Sid
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
+
 export default function Sidebar(props){
 
     const navigate = useNavigate()
-
-    var user = props.user
+    var user = props.user    
     var arr = user.user.portfolios
-
     var renderedOutput = arr.map(item => <div> {item.portfolioName} </div>)
     
     const handleClick = e => {

@@ -16,19 +16,17 @@ export default function Dashboard(props){
                     password: user.user.password,
                 }
             })
-
+            
             setUser(userData.data)    
         }
 
         fetchData()
 
-    })
+    }, []);
 
     var arr = user.user.portfolios[0].stocks
     var renderedOutput = arr.map(item => <div> {item.ticker} </div>)
     
-
-
 
     return (
         <DashboardContainer>
