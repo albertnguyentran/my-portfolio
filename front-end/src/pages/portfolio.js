@@ -5,7 +5,7 @@ import Dashboard from '../components/Dashboard'
 import Sidebar from '../components/Sidebar'
 import styled from 'styled-components'
 import jwt from 'jsonwebtoken'
-import {useParams} from 'react-router-dom'
+import {useParams, useNavigate, Navigate} from 'react-router-dom'
 
 const ContainerWrapper = styled.div`
   box-sizing: border-box;
@@ -27,14 +27,16 @@ const ContainerWrapper = styled.div`
 `
 
 const Portfolio = () => {
-  
+
     const token = localStorage.getItem('token')
     const user = jwt.decode(token)
+
+    if (!token) {
+      alert('error please sign in')
+    }
+
     let {id} = useParams();
     
-    console.log('portfolio.js', user, id)
-
-
 
     return (
       <>
