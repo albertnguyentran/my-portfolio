@@ -69,60 +69,65 @@ app.post('/api/register', async (req, res) => {
         if(err) return handleError(err)
     })*/
 
-    console.log('/api/register', req.body.username)
-
     try {
-        var userInfo = await new UserModel(
-            {
 
-                username: req.body.username,
-                password: req.body.password,
-                email: req.body.email,
+        //See if there is already a registered account
+        const user = await UserModel.findOne({
+            username: req.body.username,
+            email: req.body.email
+        })
 
-                portfolios: [
-                    {
-                        portfolioName: 'Test',
-                        stocks: [
-                            {
-                                ticker: 'AAPL',
-                                amount: 5,
-                                price: 100
-                            },
+        if (user) {
+            console.log('/api/register', 'account username or email already in use')
+            return res.json({status: 500, user: false})
 
-                            {
-                                ticker: 'GOOGL',
-                                amount: 2,
-                                price: 300
-                            },
-
-                            {
-                                ticker: 'FB',
-                                amount: 4,
-                                price: 200
-                            }
-
-                        ]
-                    },
-
-                    {
-                        portfolioName: 'Test2',
-                        stocks: [
-                            {
-                                ticker: 'MSFT',
-                                amount: 4,
-                                price: 200
-                            }
-                        ]
-                    }
-                ]
-                
-            })
+        } else {
+            const userInfo = await new UserModel(
+                {
+                    username: req.body.username,
+                    password: req.body.password,
+                    email: req.body.email,
+                    portfolios: [
+                        {
+                            portfolioName: 'Test',
+                            stocks: [
+                                {
+                                    ticker: 'AAPL',
+                                    amount: 5,
+                                    price: 100
+                                },
+                                {
+                                    ticker: 'GOOGL',
+                                    amount: 2,
+                                    price: 300
+                                },
+                                {
+                                    ticker: 'FB',
+                                    amount: 4,
+                                    price: 200
+                                }
+    
+                            ]
+                        },
+                        {
+                            portfolioName: 'Test2',
+                            stocks: [
+                                {
+                                    ticker: 'MSFT',
+                                    amount: 4,
+                                    price: 200
+                                }
+                            ]
+                        }
+                    ]  
+                })
+            
+            //Save data to mongodb
+            userInfo.save()
+    
+            return res.json({status: 200, user: true})
+        }
         
-
-        //Save data to mongodb
-        userInfo.save()
-
-        return res.json({status: 200})
 
     } catch (err) {
         res.sendStatus(500)
@@ -158,7 +163,6 @@ app.post('/api/login', async (req, res) => {
 })
 
 app.get('/api/getdata', async (req, res) => {
-
 
     try {
         const username = req.query.username
@@ -199,7 +203,6 @@ app.get('/api/getportfolio', async (req, res) => {
         const portfolio = await UserModel.findOne({
 
         })
-        
 
     } catch (err) {
         console.log(err)
