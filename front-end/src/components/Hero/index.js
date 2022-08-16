@@ -37,7 +37,9 @@ export default function Hero(){
 
             if (response.data.status === 200) {
                 navigate('/signin')
-            } 
+            } else if (response.data.status === 500) {
+                alert('username or email already in use')
+            }
             
         } catch (err) {
             console.log(err)

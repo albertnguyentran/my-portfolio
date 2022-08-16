@@ -31,6 +31,7 @@ const Portfolio = () => {
     const token = localStorage.getItem('token')
     const user = jwt.decode(token)
 
+    console.log(user)
     if (!token) {
       alert('error please sign in')
     }

@@ -25,7 +25,7 @@ export default function Dashboard(props){
     }, []);
 
     var arr = user.user.portfolios[0].stocks
-    var renderedOutput = arr.map(item => <div> {item.ticker} </div>)
+    var renderedOutput = arr.map(item => <div className=""> {item.ticker} </div>)
     
 
     return (

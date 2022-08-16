@@ -18,12 +18,15 @@ export default function Sidebar(props){
     return (
     <>
         <SidebarContainer>
-            {renderedOutput}
             <SidebarTitleWrapper>
                 <SidebarTitleTextWrapper>PORTFOLIO</SidebarTitleTextWrapper>
                 <SidebarTitleLogoWrapper></SidebarTitleLogoWrapper>
             </SidebarTitleWrapper>
 
+            <SidebarTextWrapper>
+                {renderedOutput}
+            </SidebarTextWrapper>
+            
             <SidebarTextWrapper>
                 <SidebarTextTitleWrapper>MY PORTFOLIO</SidebarTextTitleWrapper>
                 <SidebarTextTextWrapper>RRSP</SidebarTextTextWrapper>
