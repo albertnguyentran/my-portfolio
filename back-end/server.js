@@ -167,43 +167,18 @@ app.get('/api/getdata', async (req, res) => {
     try {
         const username = req.query.username
         const password = req.query.password
-        const portfolioName = req.query.portfolioName
 
         const user = await UserModel.findOne({
             username: username,
             password: password
         })
-
-        console.log(user)
         
         if (user) {
-            console.log('a')
             return res.json({status: 200, user: user})
 
         } else {
             return res.json({status: 500, user: false})
         }
-    } catch (err) {
-        console.log(err)
-    }
-})
-
-app.get('/api/getportfolio', async (req, res) => {
-    try {
-        const username = req.query.username
-        const password = req.query.password
-        const portfolioName = req.query.portfolioName
-
-        const user = await UserModel.findOne({
-            username: username,
-            password: password
-        })
-
-
-        const portfolio = await UserModel.findOne({
-
-        })
-
     } catch (err) {
         console.log(err)
     }

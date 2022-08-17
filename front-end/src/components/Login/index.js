@@ -16,7 +16,6 @@ export default function Login(){
         
     };
 
-
     async function handleSubmit(event) {
         event.preventDefault();
     
@@ -26,16 +25,12 @@ export default function Login(){
                 password: user.password,
             })
 
-
             usernameRef.current.value = ''
             passwordRef.current.value = ''
-
-            console.log('Login Page', response)
         
             if (response.data.user) {
                 localStorage.setItem('token', response.data.user)
                 navigate('/dashboard')
-
             } else {
                 alert('account not found')
             }
@@ -44,8 +39,6 @@ export default function Login(){
             console.log(err)
         }
     }
-
-
 
     return (
         <>

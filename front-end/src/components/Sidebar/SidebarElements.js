@@ -1,5 +1,24 @@
 import styled from 'styled-components'
 
+export const portfolioStyle = {
+    color: "black",
+    textAlign: "left",
+    width: "370px",
+    borderColor: "yellow",
+}
+
+export const container = {
+      
+}
+
+export const button = {
+    color: "red"
+}
+export const portfolioContainer = {
+    display: 'flex',
+    flexDirection: 'row'
+}
+
 export const SidebarContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -83,7 +102,7 @@ export const SidebarTextWrapper = styled.div`
     align-items: flex-end;
     padding: 16px 30px;
     isolation: isolate;
-
+    text-align: left;
     width: 427px;
     height: 247px;
 

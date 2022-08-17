@@ -14,9 +14,7 @@ export default function Hero(){
 
     const handleChange = (event) => {
         setUser({...user, [event.target.name]: event.target.value})
-        
     };
-
 
     async function handleSubmit(event){
         try {
@@ -32,8 +30,6 @@ export default function Hero(){
             usernameRef.current.value = ''
             passwordRef.current.value = ''
             emailRef.current.value = ''
-
-            console.log('Hero Index.js', response)
 
             if (response.data.status === 200) {
                 navigate('/signin')

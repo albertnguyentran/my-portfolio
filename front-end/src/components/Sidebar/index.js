@@ -1,20 +1,39 @@
-import React, {useEffect} from 'react'
-import { SidebarContainer, SidebarTitleLogoWrapper, SidebarTitleTextWrapper, SidebarTitleWrapper, SidebarTextTextWrapper, SidebarTextTitleWrapper, SidebarTextWrapper } from './SidebarElements'
+import React, {useEffect, useState} from 'react'
+import { button, portfolioStyle, portfolioContainer, container, SidebarContainer, SidebarTitleLogoWrapper, SidebarTitleTextWrapper, SidebarTitleWrapper, SidebarTextTextWrapper, SidebarTextTitleWrapper, SidebarTextWrapper } from './SidebarElements'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-
+import axios from 'axios'
 
 export default function Sidebar(props){
 
     const navigate = useNavigate()
-    var user = props.user    
-    var arr = user.user.portfolios
-    var renderedOutput = arr.map(item => <div> {item.portfolioName} </div>)
-    
+    const [user, setUser] = useState(props.user)
+
     const handleClick = e => {
-        console.log(e.target.value)  
+        alert('works')
     }
 
+    const deletePortfolio = (e, name) => {
+        console.log('test', name)
+    }
+
+    useEffect(() => {
+        async function fetchData(){
+            const userData = await axios.get('http://localhost:5000/api/getdata', {
+                params: {
+                    username: user.user.username,
+                    password: user.user.password,
+                }
+            })
+            
+            setUser(userData.data)    
+        }
+        fetchData()
+    }, []);
+
+    var arr = user.user.portfolios
+    var renderedOutput = arr.map(item => <div style={portfolioContainer}> <div key={item.portfolioName} style={portfolioStyle} onClick={handleClick}> {item.portfolioName} </div> <div name={item.portfolioname} onClick={deletePortfolio} style={button}>X</div></div>)
+    
     return (
     <>
         <SidebarContainer>
@@ -24,9 +43,13 @@ export default function Sidebar(props){
             </SidebarTitleWrapper>
 
             <SidebarTextWrapper>
-                {renderedOutput}
+                <SidebarTextTitleWrapper>MY PORTFOLIO</SidebarTextTitleWrapper>
             </SidebarTextWrapper>
-            
+
+            <div style={container}>
+                {renderedOutput}
+            </div>
+
             <SidebarTextWrapper>
                 <SidebarTextTitleWrapper>MY PORTFOLIO</SidebarTextTitleWrapper>
                 <SidebarTextTextWrapper>RRSP</SidebarTextTextWrapper>

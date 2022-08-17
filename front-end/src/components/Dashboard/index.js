@@ -6,7 +6,6 @@ export default function Dashboard(props){
 
     const [user, setUser] = useState(props.user)
 
-
     useEffect(() => {
     
         async function fetchData(){
@@ -17,6 +16,7 @@ export default function Dashboard(props){
                 }
             })
             
+            props.user = userData.data
             setUser(userData.data)    
         }
 
