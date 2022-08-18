@@ -5,9 +5,12 @@ import axios from 'axios'
 export default function Dashboard(props){
 
     const [user, setUser] = useState(props.user)
+    
+    async function handleSubmit(){
+        alert('urmom')
+    }
 
     useEffect(() => {
-    
         async function fetchData(){
             const userData = await axios.get('http://localhost:5000/api/getdata', {
                 params: {
@@ -15,13 +18,9 @@ export default function Dashboard(props){
                     password: user.user.password,
                 }
             })
-            
-            props.user = userData.data
             setUser(userData.data)    
         }
-
         fetchData()
-
     }, []);
 
     var arr = user.user.portfolios[0].stocks
@@ -33,7 +32,16 @@ export default function Dashboard(props){
                 {renderedOutput}
 
             <StockContainer>
-                <StockWrapper></StockWrapper>
+                <StockWrapper>
+                    <form onSubmit={handleSubmit}>
+                        <input></input>
+                        <input></input>
+                        <input></input>
+                        <input></input>
+                        <input type="submit"></input>
+                    </form>
+                </StockWrapper>
+                
                 <StockWrapper></StockWrapper>
 
             </StockContainer>
