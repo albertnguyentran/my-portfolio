@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useMemo} from 'react'
 import { button, portfolioStyle, portfolioContainer, container, SidebarContainer, SidebarTitleLogoWrapper, SidebarTitleTextWrapper, SidebarTitleWrapper, SidebarTextTextWrapper, SidebarTextTitleWrapper, SidebarTextWrapper } from './SidebarElements'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
@@ -10,13 +10,14 @@ export default function Sidebar(props){
     const [user, setUser] = useState(props.user)
 
     const handleClick = e => {
-        alert('works')
+        navigate('/portfolio/' + e.target.innerText)
+        console.log(e.target.innerText)
     }
 
-    const deletePortfolio = (e, name) => {
-        console.log('test', name)
+    const deletePortfolio = (name) => {
+        console.log(name)
     }
-
+    
     useEffect(() => {
         async function fetchData(){
             const userData = await axios.get('http://localhost:5000/api/getdata', {
@@ -25,15 +26,14 @@ export default function Sidebar(props){
                     password: user.user.password,
                 }
             })
-            
-            setUser(userData.data)    
+            setUser(userData.data)
         }
         fetchData()
     }, []);
 
     var arr = user.user.portfolios
-    var renderedOutput = arr.map(item => <div style={portfolioContainer}> <div key={item.portfolioName} style={portfolioStyle} onClick={handleClick}> {item.portfolioName} </div> <div name={item.portfolioname} onClick={deletePortfolio} style={button}>X</div></div>)
-    
+    var renderedOutput = arr.map(item => <div style={portfolioContainer}> <div key={item.portfolioName} style={portfolioStyle} onClick={handleClick}> {item.portfolioName} </div> <div name={item.portfolioname} onClick={deletePortfolio(item.portfolioName)} style={button}>X</div></div>)
+
     return (
     <>
         <SidebarContainer>

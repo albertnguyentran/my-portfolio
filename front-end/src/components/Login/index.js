@@ -11,8 +11,8 @@ export default function Login(){
     const usernameRef = useRef(null)
     const passwordRef = useRef(null)
 
-    const handleChange = (event) => {
-        setUser({...user, [event.target.name]: event.target.value})
+    const handleChange = (e) => {
+        setUser({...user, [e.target.name]: e.target.value})
         
     };
 
@@ -34,7 +34,6 @@ export default function Login(){
             } else {
                 alert('account not found')
             }
-
         } catch (err) {
             console.log(err)
         }
