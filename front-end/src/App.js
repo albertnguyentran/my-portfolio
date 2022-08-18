@@ -13,15 +13,12 @@ import Portfolio from './pages/portfolio';
 function App() {
   return (
     <Router>
-
         <Routes>
           <Route path="/" element={<Start/>}></Route>
           <Route path="/dashboard" element={<Home/>}></Route>
           <Route path="/signin" element={<SignIn/>}></Route>
           <Route path="/portfolio/:id" element={<Portfolio/>}></Route>
         </Routes>
-       
-      
     </Router>
   )
 }

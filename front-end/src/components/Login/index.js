@@ -6,10 +6,7 @@ import { useNavigate } from 'react-router-dom'
 export default function Login(){
 
     const navigate = useNavigate()
-    
     const [user, setUser] = useState({username: '', password: '', email: ''})
-    const usernameRef = useRef(null)
-    const passwordRef = useRef(null)
 
     const handleChange = (e) => {
         setUser({...user, [e.target.name]: e.target.value})
@@ -25,15 +22,13 @@ export default function Login(){
                 password: user.password,
             })
 
-            usernameRef.current.value = ''
-            passwordRef.current.value = ''
-        
             if (response.data.user) {
                 localStorage.setItem('token', response.data.user)
                 navigate('/dashboard')
             } else {
                 alert('account not found')
             }
+            
         } catch (err) {
             console.log(err)
         }
@@ -47,13 +42,13 @@ export default function Login(){
                         <LoginTextbox></LoginTextbox>
 
                         <LoginInputWrapper>
-                            <input ref={usernameRef} type="text" name="username" onChange={handleChange} value={user.username}></input>
+                            <input type="text" name="username" onChange={handleChange} value={user.username}></input>
                         </LoginInputWrapper>
 
                         <LoginTextbox></LoginTextbox>
 
                         <LoginInputWrapper>
-                            <input ref={passwordRef} type="text" name="password" onChange={handleChange} value={user.password}></input>
+                            <input type="text" name="password" onChange={handleChange} value={user.password}></input>
                         </LoginInputWrapper>
 
                         <LoginInputWrapper>
