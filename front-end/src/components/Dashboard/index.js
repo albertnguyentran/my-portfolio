@@ -4,6 +4,7 @@ import axios from 'axios'
 
 export default function Dashboard(props){
 
+
     const [user, setUser] = useState(props.user)
     const [stocks, setStocks] = useState({ticker: '', amount: '', date: '', price: ''})
 
@@ -19,20 +20,31 @@ export default function Dashboard(props){
                     password: user.user.password,
                 }
             })
+
+            if (userData.data.status === 500) {
+                alert('error adding stocks')
+            }
+
             setUser(userData.data)    
         }
         fetchData()
     }, []);
 
-    async function handleSubmit(){
+    async function handleSubmit(event){
+
         try {
+
             const response = await axios.post('http://localhost:5000/api/stocks', {
+                username: props.user.user.username,
                 portfolioName: props.id,
                 ticker: stocks.ticker,
-                amonunt: stocks.amount,
-                date: stocks.date,
+                amount: stocks.amount,
                 price: stocks.price
             })
+
+            if (response.data.status === 500) {
+                alert('error adding stocks')
+            }
 
         } catch (err) {
             console.log(err)
