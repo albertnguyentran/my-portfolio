@@ -179,6 +179,51 @@ app.get('/api/getdata', async (req, res) => {
         } else {
             return res.json({status: 500, user: false})
         }
+
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+app.post('/api/stocks', async (req, res) => {
+    try {
+        console.log('a')
+        const username = req.body.username
+        const portfolioName = req.body.portfolioName
+        const ticker = req.body.ticker
+        const amount = req.body.amount
+        const price = req.body.price
+
+        const stock = {
+            ticker: ticker,
+            amount: amount,
+            price: price
+        }
+
+        console.log(stock)
+        
+        const insertStock = await UserModel.updateOne(
+            {
+                "username": username
+            },
+            {
+                $push: {
+                    'portfolios.$[updatePortfolio].stocks': stock,
+                }
+            },
+            {
+                "arrayFilters": [
+                    {"updatePortfolio.portfolioName": portfolioName}
+                ]
+            }
+        )
+
+        if (insertStock) {
+            return res.json({status: 200})
+        } else {
+            return res.json({status: 500})
+        }
+        
     } catch (err) {
         console.log(err)
     }
