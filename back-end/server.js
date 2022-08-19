@@ -106,7 +106,6 @@ app.post('/api/register', async (req, res) => {
                                     amount: 4,
                                     price: 200
                                 }
-    
                             ]
                         },
                         {
@@ -187,7 +186,6 @@ app.get('/api/getdata', async (req, res) => {
 
 app.post('/api/stocks', async (req, res) => {
     try {
-        console.log('a')
         const username = req.body.username
         const portfolioName = req.body.portfolioName
         const ticker = req.body.ticker
@@ -199,8 +197,8 @@ app.post('/api/stocks', async (req, res) => {
             amount: amount,
             price: price
         }
-
-        console.log(stock)
+        
+        console.log('works')
         
         const insertStock = await UserModel.updateOne(
             {
@@ -217,9 +215,9 @@ app.post('/api/stocks', async (req, res) => {
                 ]
             }
         )
-
+        
         if (insertStock) {
-            return res.json({status: 200})
+            return res.json({status: 220})
         } else {
             return res.json({status: 500})
         }

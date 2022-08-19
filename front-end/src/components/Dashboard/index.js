@@ -6,6 +6,7 @@ export default function Dashboard(props){
 
 
     const [user, setUser] = useState(props.user)
+    const [portfolioIndex, setIndex] = useState()
     const [stocks, setStocks] = useState({ticker: '', amount: '', date: '', price: ''})
 
     const handleChange = (e) => {
@@ -31,9 +32,7 @@ export default function Dashboard(props){
     }, []);
 
     async function handleSubmit(event){
-
         try {
-
             const response = await axios.post('http://localhost:5000/api/stocks', {
                 username: props.user.user.username,
                 portfolioName: props.id,
@@ -42,6 +41,11 @@ export default function Dashboard(props){
                 price: stocks.price
             })
 
+            console.log(response)
+            
+            if (response.data.status === 200) {
+                alert('ok')
+            }
             if (response.data.status === 500) {
                 alert('error adding stocks')
             }
