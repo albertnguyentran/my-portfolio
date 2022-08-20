@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react'
-import { DashboardContainer, StockContainer, StockWrapper, HeaderWrapper, GraphContainer, GraphWrapper } from './DashboardElements'
+import { stockStyle, stockContainer, DashboardContainer, StockContainer, StockWrapper, HeaderWrapper, GraphContainer, GraphWrapper } from './DashboardElements'
 import axios from 'axios'
 
 export default function Dashboard(props){
@@ -36,9 +36,11 @@ export default function Dashboard(props){
             const response = await axios.post('http://localhost:5000/api/stocks', {
                 username: props.user.user.username,
                 portfolioName: props.id,
-                ticker: stocks.ticker,
-                amount: stocks.amount,
-                price: stocks.price
+                stock: {
+                    ticker: stocks.ticker,
+                    amount: stocks.amount,
+                    price: stocks.price
+                }
             })
 
             console.log(response)
@@ -56,13 +58,21 @@ export default function Dashboard(props){
     }
 
     var arr = user.user.portfolios[0].stocks
-    var renderedOutput = arr.map(item => <div className=""> {item.ticker} </div>)
+    var renderedOutput = arr.map(item =>  <div style={stockContainer}> <div style={stockStyle}> {item.ticker} </div> <div style={stockStyle}> {item.amount} </div> <div> {item.price} </div> </div>)
     
     return (
         <DashboardContainer>
-                {renderedOutput}
 
             <StockContainer>
+
+                <StockWrapper>
+                    <div>Ticker</div>
+                    <div>Amount</div>
+                    <div>Price</div>
+                </StockWrapper>
+
+                {renderedOutput}
+
                 <StockWrapper>
                     <form onSubmit={handleSubmit}>
                         <input type="text" name="ticker" onChange={handleChange} value={stocks.ticker}></input>
@@ -71,8 +81,6 @@ export default function Dashboard(props){
                         <input type="submit"></input>
                     </form>
                 </StockWrapper>
-
-                <StockWrapper></StockWrapper>
 
             </StockContainer>
             <HeaderWrapper></HeaderWrapper>

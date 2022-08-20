@@ -186,36 +186,23 @@ app.get('/api/getdata', async (req, res) => {
 
 app.post('/api/stocks', async (req, res) => {
     try {
-        const username = req.body.username
-        const portfolioName = req.body.portfolioName
-        const ticker = req.body.ticker
-        const amount = req.body.amount
-        const price = req.body.price
-
-        const stock = {
-            ticker: ticker,
-            amount: amount,
-            price: price
-        }
-        
-        console.log('works')
         
         const insertStock = await UserModel.updateOne(
             {
-                "username": username
+                "username": req.body.username
             },
             {
                 $push: {
-                    'portfolios.$[updatePortfolio].stocks': stock,
+                    'portfolios.$[updatePortfolio].stocks': req.body.stock,
                 }
             },
             {
                 "arrayFilters": [
-                    {"updatePortfolio.portfolioName": portfolioName}
+                    {"updatePortfolio.portfolioName": req.body.portfolioName}
                 ]
             }
         )
-        
+
         if (insertStock) {
             return res.json({status: 220})
         } else {

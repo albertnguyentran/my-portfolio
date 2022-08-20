@@ -8,6 +8,7 @@ export default function Sidebar(props){
 
     const navigate = useNavigate()
     const [user, setUser] = useState(props.user)
+    const [portfolioName, setPortfolio] = useState({portfolioName: ''})
 
     const handleClick = e => {
         navigate('/portfolio/' + e.target.innerText)
@@ -17,7 +18,19 @@ export default function Sidebar(props){
     const deletePortfolio = (name) => {
         console.log(name)
     }
+
+    const handleChange = (e) => {
+        setPortfolio({...portfolioName, [e.target.name]: e.target.value})
+    };
     
+    async function handleSubmit(event){
+        try {
+            
+        } catch (err) {
+
+        }
+    }
+
     useEffect(() => {
         async function fetchData(){
             const userData = await axios.get('http://localhost:5000/api/getdata', {
@@ -49,6 +62,11 @@ export default function Sidebar(props){
             <div style={container}>
                 {renderedOutput}
             </div>
+
+            <form onSubmit={handleSubmit}>
+                <input type="text" name="portfolioName" onChange={handleChange} value={portfolioName.portfolioName}></input>
+                <input type="submit"></input>
+            </form>
 
             <SidebarTextWrapper>
                 <SidebarTextTitleWrapper>MY PORTFOLIO</SidebarTextTitleWrapper>

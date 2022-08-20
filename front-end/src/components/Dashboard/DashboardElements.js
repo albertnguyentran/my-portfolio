@@ -1,5 +1,20 @@
 import styled from 'styled-components'
 
+export const stockContainer = {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: '40px',
+
+}
+
+export const stockStyle = {
+    color: "black",
+    textAlign: "left",
+    width: "400px",
+    borderColor: "yellow",
+}
+
 export const DashboardContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -8,7 +23,7 @@ export const DashboardContainer = styled.div`
     gap: 10px;
 
     width: 100%;
-    height: 100%;
+    height: fit-content;
 
     background: #E9F0EC;
 
@@ -26,7 +41,7 @@ export const StockContainer = styled.div`
     gap: 10px;
 
     width: 1207px;
-    height: 333px;
+    height: fit-content;
 
     background: #D159FB;
 
@@ -43,8 +58,9 @@ export const StockWrapper = styled.div`
     background: #FFFFFF;
 
     /* Inside auto layout */
-
-    flex: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     order: 0;
     flex-grow: 0;
 `
