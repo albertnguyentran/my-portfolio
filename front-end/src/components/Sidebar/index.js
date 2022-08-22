@@ -15,16 +15,25 @@ export default function Sidebar(props){
         console.log(e.target.innerText)
     }
 
-    const deletePortfolio = (name) => {
-        console.log(name)
+    //Delete portfolio
+    async function deletePortfolio(name){
+        try {
+            const response = await axios.post('http://localhost:5000/api/deleteportfolio')
+        } catch (err) {
+
+        }
     }
 
     const handleChange = (e) => {
         setPortfolio({...portfolioName, [e.target.name]: e.target.value})
-    };
-    
+    }
+
+    //Create a new portfolio
     async function handleSubmit(event){
         try {
+            const response = await axios.post('http://localhost:5000/api/postportfolio', {
+                portfolioName: portfolioName.portfolioName
+            })
             
         } catch (err) {
 
@@ -45,7 +54,7 @@ export default function Sidebar(props){
     }, []);
 
     var arr = user.user.portfolios
-    var renderedOutput = arr.map(item => <div style={portfolioContainer}> <div key={item.portfolioName} style={portfolioStyle} onClick={handleClick}> {item.portfolioName} </div> <div name={item.portfolioname} onClick={deletePortfolio(item.portfolioName)} style={button}>X</div></div>)
+    var renderedOutput = arr.map(item => <div style={portfolioContainer}> <div key={item.portfolioName} style={portfolioStyle} onClick={handleClick}> {item.portfolioName} </div> <div name={item.portfolioname} onClick={() => deletePortfolio(item.portfolioName)} style={button}>X</div></div>)
 
     return (
     <>
@@ -55,9 +64,6 @@ export default function Sidebar(props){
                 <SidebarTitleLogoWrapper></SidebarTitleLogoWrapper>
             </SidebarTitleWrapper>
 
-            <SidebarTextWrapper>
-                <SidebarTextTitleWrapper>MY PORTFOLIO</SidebarTextTitleWrapper>
-            </SidebarTextWrapper>
 
             <div style={container}>
                 {renderedOutput}

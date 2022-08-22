@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react'
-import { stockStyle, stockContainer, DashboardContainer, StockContainer, StockWrapper, HeaderWrapper, GraphContainer, GraphWrapper } from './DashboardElements'
+import { button, stockStyle, stockContainer, DashboardContainer, StockContainer, StockWrapper, HeaderWrapper, GraphContainer, GraphWrapper } from './DashboardElements'
 import axios from 'axios'
 
 export default function Dashboard(props){
@@ -13,6 +13,7 @@ export default function Dashboard(props){
         setStocks({...stocks, [e.target.name]: e.target.value})
     };
 
+    //Fetch data every time the page is loaded/a component changes (state changes because of a submission)
     useEffect(() => {
         async function fetchData(){
             const userData = await axios.get('http://localhost:5000/api/getdata', {
@@ -31,9 +32,16 @@ export default function Dashboard(props){
         fetchData()
     }, []);
 
+    //Delete stock with id
+    async function deleteStock(stock){
+        console.log(stock)
+        console.log(stock._id)
+    }
+
+    //Post stock to respective portfolio
     async function handleSubmit(event){
         try {
-            const response = await axios.post('http://localhost:5000/api/stocks', {
+            const response = await axios.post('http://localhost:5000/api/poststock', {
                 username: props.user.user.username,
                 portfolioName: props.id,
                 stock: {
@@ -42,8 +50,6 @@ export default function Dashboard(props){
                     price: stocks.price
                 }
             })
-
-            console.log(response)
             
             if (response.data.status === 200) {
                 alert('ok')
@@ -58,7 +64,7 @@ export default function Dashboard(props){
     }
 
     var arr = user.user.portfolios[0].stocks
-    var renderedOutput = arr.map(item =>  <div style={stockContainer}> <div style={stockStyle}> {item.ticker} </div> <div style={stockStyle}> {item.amount} </div> <div> {item.price} </div> </div>)
+    var renderedOutput = arr.map(item =>  <div style={stockContainer}> <div style={stockStyle}> {item.ticker} </div> <div style={stockStyle}> {item.amount} </div> <div style={stockStyle}> {item.price} </div> <div stockItem={item} onClick={() => deleteStock(item)} style={button}>X</div> </div>)
     
     return (
         <DashboardContainer>
