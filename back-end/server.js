@@ -213,3 +213,7 @@ app.post('/api/stocks', async (req, res) => {
         console.log(err)
     }
 })
+
+app.post('/api/removestocks', async (req, res) => {
+    
+})
