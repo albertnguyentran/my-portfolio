@@ -74,12 +74,19 @@ app.post('/api/register', async (req, res) => {
         //See if there is already a registered account
         const user = await UserModel.findOne({
             username: req.body.username,
+        })
+
+        const user2 = await UserModel.findOne({
             email: req.body.email
         })
 
-        if (user) {
+        if (user || user2) {
             console.log('/api/register', 'account username or email already in use')
             return res.json({status: 500, user: false})
+
+        } else if (!req.body.username || !req.body.password || !req.body.email){
+            console.log('/api/register', 'missing data')
+            return res.json({status: 500, user: 'missing'})
 
         } else {
             const userInfo = await new UserModel(
@@ -194,7 +201,7 @@ app.post('/api/postportfolio', async (req, res) => {
         )
 
         if (insertPortfolio) {
-            return res.json({status: 220})
+            return res.json({status: 200})
         } else {
             return res.json({status: 500})
         }
@@ -204,10 +211,58 @@ app.post('/api/postportfolio', async (req, res) => {
 })
 
 app.post('/api/deletestock', async (req, res) => {
-    
+    try {
+        const response = await UserModel.updateOne(
+            {
+                "username": req.body.username
+            },
+            { 
+                $pull: {
+                    "portfolios.$[updatePortfolio].stocks": req.body.stock
+                }
+            },
+            {
+                "arrayFilters": [
+                    {"updatePortfolio.portfolioName": req.body.portfolioName}
+                ]
+            }
+        )
+
+        if (response) {
+            console.log('works')
+            return res.json({status: 200})
+        } else {
+            return res.json({status: 500})
+        }
+
+    } catch (err) {
+        console.log(err)
+    }
 })
 
 app.post('/api/deleteportfolio', async (req, res) => {
+    try {
+        const response = await UserModel.updateOne(
+            {
+                "username": req.body.username
+            },
+            { 
+                $pull: {
+                    portfolios: {portfolioName: req.body.portfolioName}
+                }
+            },
+        )
+
+        if (response) {
+            console.log('works')
+            return res.json({status: 200})
+        } else {
+            return res.json({status: 500})
+        }
+
+    } catch (err) {
+        console.log(err)
+    }
 
 })
 

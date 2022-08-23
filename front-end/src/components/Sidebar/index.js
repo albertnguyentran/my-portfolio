@@ -18,9 +18,15 @@ export default function Sidebar(props){
     //Delete portfolio
     async function deletePortfolio(name){
         try {
-            const response = await axios.post('http://localhost:5000/api/deleteportfolio')
-        } catch (err) {
+            const response = await axios.post('http://localhost:5000/api/deleteportfolio', {
+                username: user.user.username,
+                portfolioName: name
+            })
 
+            setPortfolio('')
+
+        } catch (err) {
+            console.log(err)
         }
     }
 
@@ -55,7 +61,7 @@ export default function Sidebar(props){
             setUser(userData.data)
         }
         fetchData()
-    }, []);
+    }, [user, portfolioName]);
 
     var arr = user.user.portfolios
     var renderedOutput = arr.map(item => <div style={portfolioContainer}> <div key={item.portfolioName} style={portfolioStyle} onClick={handleClick}> {item.portfolioName} </div> <div name={item.portfolioname} onClick={() => deletePortfolio(item.portfolioName)} style={button}>X</div></div>)

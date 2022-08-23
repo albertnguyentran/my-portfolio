@@ -30,12 +30,22 @@ export default function Dashboard(props){
             setUser(userData.data)    
         }
         fetchData()
-    }, []);
+    }, [user, stocks]);
 
     //Delete stock with id
     async function deleteStock(stock){
-        console.log(stock)
-        console.log(stock._id)
+        try {
+            const response = await axios.post('http://localhost:5000/api/deletestock', {
+                username: user.user.username,
+                portfolioName: props.id,
+                stock: stock
+            })
+
+            setStocks('')
+
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     //Post stock to respective portfolio
