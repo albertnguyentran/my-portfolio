@@ -32,7 +32,11 @@ export default function Sidebar(props){
     async function handleSubmit(event){
         try {
             const response = await axios.post('http://localhost:5000/api/postportfolio', {
-                portfolioName: portfolioName.portfolioName
+                username: user.user.username,
+                insertPortfolio: {
+                    portfolioName: portfolioName.portfolioName,
+                    stocks: []
+                }
             })
             
         } catch (err) {

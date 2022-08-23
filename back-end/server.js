@@ -87,38 +87,7 @@ app.post('/api/register', async (req, res) => {
                     username: req.body.username,
                     password: req.body.password,
                     email: req.body.email,
-                    portfolios: [
-                        {
-                            portfolioName: 'Test',
-                            stocks: [
-                                {
-                                    ticker: 'AAPL',
-                                    amount: 5,
-                                    price: 100
-                                },
-                                {
-                                    ticker: 'GOOGL',
-                                    amount: 2,
-                                    price: 300
-                                },
-                                {
-                                    ticker: 'FB',
-                                    amount: 4,
-                                    price: 200
-                                }
-                            ]
-                        },
-                        {
-                            portfolioName: 'Test2',
-                            stocks: [
-                                {
-                                    ticker: 'MSFT',
-                                    amount: 4,
-                                    price: 200
-                                }
-                            ]
-                        }
-                    ]  
+                    portfolios: []
                 })
             
             //Save data to mongodb
@@ -132,8 +101,6 @@ app.post('/api/register', async (req, res) => {
         res.sendStatus(500)
         
     }
-
-
 })
 
 //Verify user in mongodb, return JWT which can be decoded in the front end to display the rest of the data
@@ -184,9 +151,8 @@ app.get('/api/getdata', async (req, res) => {
     }
 })
 
-app.post('/api/stocks', async (req, res) => {
+app.post('/api/poststock', async (req, res) => {
     try {
-        
         const insertStock = await UserModel.updateOne(
             {
                 "username": req.body.username
@@ -214,6 +180,64 @@ app.post('/api/stocks', async (req, res) => {
     }
 })
 
-app.post('/api/removestocks', async (req, res) => {
+app.post('/api/postportfolio', async (req, res) => {
+    try {
+        const insertPortfolio = await UserModel.updateOne(
+            {
+            "username": req.body.username,
+            },
+            {
+                $push: {
+                    portfolios: req.body.insertPortfolio
+                }
+            }     
+        )
+
+        if (insertPortfolio) {
+            return res.json({status: 220})
+        } else {
+            return res.json({status: 500})
+        }
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+app.post('/api/deletestock', async (req, res) => {
     
 })
+
+app.post('/api/deleteportfolio', async (req, res) => {
+
+})
+
+ /*{
+                            portfolioName: 'Test',
+                            stocks: [
+                                {
+                                    ticker: 'AAPL',
+                                    amount: 5,
+                                    price: 100
+                                },
+                                {
+                                    ticker: 'GOOGL',
+                                    amount: 2,
+                                    price: 300
+                                },
+                                {
+                                    ticker: 'FB',
+                                    amount: 4,
+                                    price: 200
+                                }
+                            ]
+                        },
+                        {
+                            portfolioName: 'Test2',
+                            stocks: [
+                                {
+                                    ticker: 'MSFT',
+                                    amount: 4,
+                                    price: 200
+                                }
+                            ]
+                        }*/

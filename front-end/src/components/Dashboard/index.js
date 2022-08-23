@@ -63,8 +63,12 @@ export default function Dashboard(props){
         }
     }
 
-    var arr = user.user.portfolios[0].stocks
-    var renderedOutput = arr.map(item =>  <div style={stockContainer}> <div style={stockStyle}> {item.ticker} </div> <div style={stockStyle}> {item.amount} </div> <div style={stockStyle}> {item.price} </div> <div stockItem={item} onClick={() => deleteStock(item)} style={button}>X</div> </div>)
+    //Find the index of the portfolio here with the portfolio name using :id
+    if (user.user.portfolios[0]) {
+        var arr = user.user.portfolios[0].stocks
+        var renderedOutput = arr.map(item =>  <div style={stockContainer}> <div style={stockStyle}> {item.ticker} </div> <div style={stockStyle}> {item.amount} </div> <div style={stockStyle}> {item.price} </div> <div stockItem={item} onClick={() => deleteStock(item)} style={button}>X</div> </div>)
+    }
+
     
     return (
         <DashboardContainer>
