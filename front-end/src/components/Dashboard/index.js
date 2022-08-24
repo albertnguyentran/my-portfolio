@@ -29,8 +29,22 @@ export default function Dashboard(props){
 
             setUser(userData.data)    
         }
+
+        async function fetchIndex(){
+            const index = await axios.get('http://localhost:5000/api/getindex', {
+                params: {
+                    username: user.user.username,
+                    portfolioName: props.id
+                }
+            })
+
+            if (index.data.status === 200) {
+                setIndex(index.data.index)
+            }
+        }
         fetchData()
-    }, [user, stocks]);
+        fetchIndex()
+    }, [user,stocks]);
 
     //Delete stock with id
     async function deleteStock(stock){
@@ -74,8 +88,8 @@ export default function Dashboard(props){
     }
 
     //Find the index of the portfolio here with the portfolio name using :id
-    if (user.user.portfolios[0]) {
-        var arr = user.user.portfolios[0].stocks
+    if (user.user.portfolios[portfolioIndex]) {
+        var arr = user.user.portfolios[portfolioIndex].stocks
         var renderedOutput = arr.map(item =>  <div style={stockContainer}> <div style={stockStyle}> {item.ticker} </div> <div style={stockStyle}> {item.amount} </div> <div style={stockStyle}> {item.price} </div> <div stockItem={item} onClick={() => deleteStock(item)} style={button}>X</div> </div>)
     }
 
