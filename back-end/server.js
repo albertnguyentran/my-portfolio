@@ -5,6 +5,7 @@ const http = require('http').Server(app)
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+var yahooFinance = require('yahoo-finance')
 
 //Import Models
 const UserModel = require('./models/models')
@@ -273,6 +274,24 @@ app.post('/api/deleteportfolio', async (req, res) => {
         console.log(err)
     }
 
+})
+
+app.get('/api/yahoo', async (req, res) => {
+    try {
+        yahooFinance.historical(
+            {
+              symbol: "MSFT",
+              from: "2021-04-26",
+              to: "2021-04-27"
+            },
+            function (err, quotes) {
+                return res.json({quote: quotes[0]})
+            }
+          );
+
+    } catch (err) {
+        console.log(err)
+    }
 })
 
  /*{
