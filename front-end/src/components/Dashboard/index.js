@@ -1,7 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react'
 import { button, stockStyle, stockContainer, DashboardContainer, StockContainer, StockWrapper, HeaderWrapper, GraphContainer, GraphWrapper } from './DashboardElements'
 import axios from 'axios'
-import yahooFinance from 'yahoo-finance'
 
 export default function Dashboard(props){
 
@@ -56,6 +55,11 @@ export default function Dashboard(props){
                 stock: stock
             })
 
+            const test = await axios.get('http://localhost:5000/api/yahoo', {
+                test: 'test'
+            })
+
+            console.log(test.data.quote)
             setStocks('')
 
         } catch (err) {
@@ -88,27 +92,11 @@ export default function Dashboard(props){
         }
     }
 
-    const testStocks = () => {
-        
-        var test = yahooFinance.historical({
-            symbol: 'AAPL',
-            from: '2012-01-01',
-            to: '2012-12-31',
-            // period: 'd'  // 'd' (daily), 'w' (weekly), 'm' (monthly), 'v' (dividends only)
-          }, function (err, quotes) {
-            //...
-          });
-
-        console.log(test)
-    }
-
-    testStocks()
 
     //Find the index of the portfolio here with the portfolio name using :id
     if (user.user.portfolios[portfolioIndex]) {
         var arr = user.user.portfolios[portfolioIndex].stocks
         var renderedOutput = arr.map(item =>  <div style={stockContainer}> <div style={stockStyle}> {item.ticker} </div> <div style={stockStyle}> {item.amount} </div> <div style={stockStyle}> {item.price} </div> <div stockItem={item} onClick={() => deleteStock(item)} style={button}>X</div> </div>)
-        //var renderedGraph = arr.map(testStocks)
     }
 
     
