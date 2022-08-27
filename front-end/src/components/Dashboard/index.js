@@ -8,6 +8,7 @@ export default function Dashboard(props){
     const [user, setUser] = useState(props.user)
     const [portfolioIndex, setIndex] = useState()
     const [stocks, setStocks] = useState({ticker: '', amount: '', date: '', price: ''})
+    const [yahooStocks, setYahooStocks] = useState([])
 
     const handleChange = (e) => {
         setStocks({...stocks, [e.target.name]: e.target.value})
@@ -55,10 +56,6 @@ export default function Dashboard(props){
                 stock: stock
             })
 
-            const test = await axios.get('http://localhost:5000/api/yahoo', {
-                test: 'test'
-            })
-
             console.log(test.data.quote)
             setStocks('')
 
@@ -92,14 +89,30 @@ export default function Dashboard(props){
         }
     }
 
+    async function yahooStock(stock){
+        try {
+            const test =  await axios.get('http://localhost:5000/api/yahoo', {
+                params: {
+                    stock: stock.ticker
+                }
+            })
+
+            setYahooStocks(yahooStocks => [...yahooStocks, test.data.quote])
+            
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
 
     //Find the index of the portfolio here with the portfolio name using :id
+
     if (user.user.portfolios[portfolioIndex]) {
         var arr = user.user.portfolios[portfolioIndex].stocks
         var renderedOutput = arr.map(item =>  <div style={stockContainer}> <div style={stockStyle}> {item.ticker} </div> <div style={stockStyle}> {item.amount} </div> <div style={stockStyle}> {item.price} </div> <div stockItem={item} onClick={() => deleteStock(item)} style={button}>X</div> </div>)
+        var yahooOutput = arr.map(item => yahooStock(item))
     }
 
-    
     return (
         <DashboardContainer>
 
@@ -110,7 +123,10 @@ export default function Dashboard(props){
                     <div>Amount</div>
                     <div>Price</div>
                 </StockWrapper>
-
+                
+                <div>
+                    {arr.map()}
+                </div>
                 {renderedOutput}
 
                 <StockWrapper>
