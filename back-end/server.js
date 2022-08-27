@@ -278,13 +278,15 @@ app.post('/api/deleteportfolio', async (req, res) => {
 
 app.get('/api/yahoo', async (req, res) => {
     try {
+        console.log(req.query.stock)
         yahooFinance.historical(
             {
-              symbol: "MSFT",
+              symbol: req.query.stock,
               from: "2021-04-26",
               to: "2021-04-27"
             },
             function (err, quotes) {
+                console.log(quotes[0])
                 return res.json({quote: quotes[0]})
             }
           );
