@@ -11,6 +11,7 @@ var yahooFinance = require('yahoo-finance')
 const UserModel = require('./models/models')
 
 const jwt = require('jsonwebtoken')
+const { quote } = require('yahoo-finance')
 
 //Create server
 app.use(express.static(__dirname))
@@ -278,51 +279,15 @@ app.post('/api/deleteportfolio', async (req, res) => {
 
 app.get('/api/yahoo', async (req, res) => {
     try {
-        console.log(req.query.stock)
-        yahooFinance.historical(
-            {
-              symbol: req.query.stock,
-              from: "2021-04-26",
-              to: "2021-04-27"
-            },
-            function (err, quotes) {
-                console.log(quotes[0])
-                return res.json({quote: quotes[0]})
-            }
-          );
+        const result = await quote(req.query.stock, ['summaryDetail', 'recommendationTrend'])
 
+        if (result) {
+            return res.json({status: 200, data: {ticker: req.query.stock, price: result.summaryDetail.previousClose, buy: result.recommendationTrend.trend[1].buy,
+                sell: result.recommendationTrend.trend[1].sell, hold: result.recommendationTrend.trend[1].buy }})
+        } else if (!result) {
+            return res.json({status: 500, data: ''})
+        }
     } catch (err) {
         console.log(err)
     }
 })
-
- /*{
-                            portfolioName: 'Test',
-                            stocks: [
-                                {
-                                    ticker: 'AAPL',
-                                    amount: 5,
-                                    price: 100
-                                },
-                                {
-                                    ticker: 'GOOGL',
-                                    amount: 2,
-                                    price: 300
-                                },
-                                {
-                                    ticker: 'FB',
-                                    amount: 4,
-                                    price: 200
-                                }
-                            ]
-                        },
-                        {
-                            portfolioName: 'Test2',
-                            stocks: [
-                                {
-                                    ticker: 'MSFT',
-                                    amount: 4,
-                                    price: 200
-                                }
-                            ]
-                        }*/

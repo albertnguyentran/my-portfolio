@@ -43,9 +43,12 @@ export default function Dashboard(props){
                 setIndex(index.data.index)
             }
         }
+
         fetchData()
         fetchIndex()
-    }, [user,stocks]);
+
+
+    }, [user]);
 
     //Delete stock with id
     async function deleteStock(stock){
@@ -56,8 +59,9 @@ export default function Dashboard(props){
                 stock: stock
             })
 
-            console.log(test.data.quote)
-            setStocks('')
+            if (response.data.status === 500) {
+                alert('error deleting stock')
+            }
 
         } catch (err) {
             console.log(err)
@@ -96,8 +100,12 @@ export default function Dashboard(props){
                     stock: stock.ticker
                 }
             })
-
-            setYahooStocks(yahooStocks => [...yahooStocks, test.data.quote])
+            
+            if (test.data.status === 200) {
+                if (!(yahooStocks.includes(test.data.data))) {
+                    setYahooStocks(yahooStocks => [...yahooStocks, test.data.data])
+                }
+            }
             
         } catch (err) {
             console.log(err)
@@ -105,12 +113,16 @@ export default function Dashboard(props){
     }
 
 
+    useEffect(() => {
+        console.log('a', portfolioIndex)
+    }, [])
+
     //Find the index of the portfolio here with the portfolio name using :id
 
     if (user.user.portfolios[portfolioIndex]) {
         var arr = user.user.portfolios[portfolioIndex].stocks
         var renderedOutput = arr.map(item =>  <div style={stockContainer}> <div style={stockStyle}> {item.ticker} </div> <div style={stockStyle}> {item.amount} </div> <div style={stockStyle}> {item.price} </div> <div stockItem={item} onClick={() => deleteStock(item)} style={button}>X</div> </div>)
-        var yahooOutput = arr.map(item => yahooStock(item))
+        var yahooStock = arr.map(item => yahooStock(item))
     }
 
     return (
@@ -124,9 +136,6 @@ export default function Dashboard(props){
                     <div>Price</div>
                 </StockWrapper>
                 
-                <div>
-                    {arr.map()}
-                </div>
                 {renderedOutput}
 
                 <StockWrapper>
