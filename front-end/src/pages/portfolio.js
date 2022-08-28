@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import Hero from '../components/Hero'
 import axios from 'axios'
 import Dashboard from '../components/Dashboard'
@@ -37,10 +37,6 @@ const Portfolio = () => {
 
     let {id} = useParams();
 
-    useEffect(() => {
-
-    }, [])
-
     return (
       <>
         <ContainerWrapper>
@@ -50,6 +46,6 @@ const Portfolio = () => {
       </>    
       
     )
-  }
+}
 
 export default Portfolio

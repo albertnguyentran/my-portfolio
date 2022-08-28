@@ -159,6 +159,7 @@ app.get('/api/getindex', async (req, res) => {
         )
         
         if (getIndex) {
+            console.log(getIndex[0].result)
             return res.json({status: 200, index: getIndex[0].result})
         } else {
             return res.json({status: 500, index: null})

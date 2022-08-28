@@ -6,49 +6,59 @@ export default function Dashboard(props){
 
 
     const [user, setUser] = useState(props.user)
+    const [update, setUpdate] = useState()
     const [portfolioIndex, setIndex] = useState()
     const [stocks, setStocks] = useState({ticker: '', amount: '', date: '', price: ''})
-    const [yahooStocks, setYahooStocks] = useState([])
+    const [yahooStocks, setYahooStocks] = useState([{ticker: '', price: '', buy: '', sell: '', hold: ''}])
 
     const handleChange = (e) => {
         setStocks({...stocks, [e.target.name]: e.target.value})
     };
 
-    //Fetch data every time the page is loaded/a component changes (state changes because of a submission)
+    //Fetch data every time the page is loaded
     useEffect(() => {
-        async function fetchData(){
-            const userData = await axios.get('http://localhost:5000/api/getdata', {
-                params: {
-                    username: user.user.username,
-                    password: user.user.password,
+        try {
+            async function fetchData () {
+                const userData = await axios.get('http://localhost:5000/api/getdata', {
+                    params: {
+                        username: user.user.username,
+                        password: user.user.password,
+                    }
+                })
+    
+                if (userData.data.status === 500) {
+                    alert('error adding stocks')
                 }
-            })
-
-            if (userData.data.status === 500) {
-                alert('error adding stocks')
+                
+                setUser(userData.data)    
+            }
+    
+             async function fetchIndex(){
+                const index = await axios.get('http://localhost:5000/api/getindex', {
+                    params: {
+                        username: user.user.username,
+                        portfolioName: props.id
+                    }
+                })
+                
+                if (index.data.status === 200) {
+                    setIndex(index.data.index)
+                }
             }
 
-            setUser(userData.data)    
+
+
+            fetchData()
+            fetchIndex()
+
+        } catch (err) {
+            console.log(err)
         }
-
-        async function fetchIndex(){
-            const index = await axios.get('http://localhost:5000/api/getindex', {
-                params: {
-                    username: user.user.username,
-                    portfolioName: props.id
-                }
-            })
-
-            if (index.data.status === 200) {
-                setIndex(index.data.index)
-            }
-        }
-
-        fetchData()
-        fetchIndex()
-
+    
+    
 
     }, [user]);
+
 
     //Delete stock with id
     async function deleteStock(stock){
@@ -61,6 +71,8 @@ export default function Dashboard(props){
 
             if (response.data.status === 500) {
                 alert('error deleting stock')
+            } else {
+                setUpdate('')
             }
 
         } catch (err) {
@@ -95,34 +107,41 @@ export default function Dashboard(props){
 
     async function yahooStock(stock){
         try {
-            const test =  await axios.get('http://localhost:5000/api/yahoo', {
+            const result =  await axios.get('http://localhost:5000/api/yahoo', {
                 params: {
                     stock: stock.ticker
                 }
             })
             
-            if (test.data.status === 200) {
-                if (!(yahooStocks.includes(test.data.data))) {
-                    setYahooStocks(yahooStocks => [...yahooStocks, test.data.data])
+            var flag = true;
+
+            if (result.data.status === 200) {
+                for (let i = 0; i < yahooStocks.length; i++) {
+                    if (yahooStocks[i].ticker === (result.data.data.ticker) && yahooStocks[i].price === (result.data.data.price)){
+                        flag = false;
+                        break;
+                    }
+
                 }
+
+            if (flag){
+                setYahooStocks(yahooStocks => [...yahooStocks, result.data.data])
             }
             
+            console.log(yahooStocks)
+            }
         } catch (err) {
             console.log(err)
         }
     }
 
-
-    useEffect(() => {
-        console.log('a', portfolioIndex)
-    }, [])
-
     //Find the index of the portfolio here with the portfolio name using :id
 
+    //console.log(portfolioIndex)
     if (user.user.portfolios[portfolioIndex]) {
         var arr = user.user.portfolios[portfolioIndex].stocks
         var renderedOutput = arr.map(item =>  <div style={stockContainer}> <div style={stockStyle}> {item.ticker} </div> <div style={stockStyle}> {item.amount} </div> <div style={stockStyle}> {item.price} </div> <div stockItem={item} onClick={() => deleteStock(item)} style={button}>X</div> </div>)
-        var yahooStock = arr.map(item => yahooStock(item))
+        //var yahooStock = arr.map(item => yahooStock(item))
     }
 
     return (

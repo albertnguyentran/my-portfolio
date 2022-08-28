@@ -12,7 +12,6 @@ export default function Sidebar(props){
 
     const handleClick = e => {
         navigate('/portfolio/' + e.target.innerText)
-        console.log(e.target.innerText)
     }
 
     //Delete portfolio
