@@ -6,7 +6,11 @@ const mongoose = require('mongoose')
 const Stock = new mongoose.Schema({
     ticker: String,
     amount: Number,
-    price: Number
+    price: Number,
+    marketValue: Number,
+    buy: Number,
+    hold: Number,
+    sell: Number 
     })
 
 const Portfolio = new mongoose.Schema({

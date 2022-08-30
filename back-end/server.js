@@ -159,7 +159,6 @@ app.get('/api/getindex', async (req, res) => {
         )
         
         if (getIndex) {
-            console.log(getIndex[0].result)
             return res.json({status: 200, index: getIndex[0].result})
         } else {
             return res.json({status: 500, index: null})
@@ -172,30 +171,48 @@ app.get('/api/getindex', async (req, res) => {
 
 app.post('/api/poststock', async (req, res) => {
     try {
-        const insertStock = await UserModel.updateOne(
-            {
-                "username": req.body.username
-            },
-            {
-                $push: {
-                    'portfolios.$[updatePortfolio].stocks': req.body.stock,
-                }
-            },
-            {
-                "arrayFilters": [
-                    {"updatePortfolio.portfolioName": req.body.portfolioName}
-                ]
-            }
-        )
+        const result = await quote(req.body.ticker, ['summaryDetail', 'recommendationTrend'])
 
-        if (insertStock) {
-            return res.json({status: 220})
-        } else {
+        if (!result) {
             return res.json({status: 500})
+
+        } else if (result) {
+            const stock = {
+                ticker: req.body.ticker,
+                amount: req.body.amount,
+                price: result.summaryDetail.previousClose,
+                marketValue: (Math.round(req.body.amount * result.summaryDetail.previousClose)),
+                buy: result.recommendationTrend.trend[1].buy,
+                hold: result.recommendationTrend.trend[1].hold,
+                sell: result.recommendationTrend.trend[1].sell
+    
+            }
+    
+            const insertStock = await UserModel.updateOne(
+                {
+                    "username": req.body.username
+                },
+                {
+                    $push: {
+                        'portfolios.$[updatePortfolio].stocks': stock,
+                    }
+                },
+                {
+                    "arrayFilters": [
+                        {"updatePortfolio.portfolioName": req.body.portfolioName}
+                    ]
+                }
+            )
+    
+            if (insertStock) {
+                return res.json({status: 220})
+            } else {
+                return res.json({status: 500})
+            }
         }
         
     } catch (err) {
-        console.log(err)
+        return res.json({status: 500})
     }
 })
 
@@ -266,7 +283,6 @@ app.post('/api/deleteportfolio', async (req, res) => {
         )
 
         if (response) {
-            console.log('works')
             return res.json({status: 200})
         } else {
             return res.json({status: 500})
@@ -276,19 +292,4 @@ app.post('/api/deleteportfolio', async (req, res) => {
         console.log(err)
     }
 
-})
-
-app.get('/api/yahoo', async (req, res) => {
-    try {
-        const result = await quote(req.query.stock, ['summaryDetail', 'recommendationTrend'])
-
-        if (result) {
-            return res.json({status: 200, data: {ticker: req.query.stock, price: result.summaryDetail.previousClose, buy: result.recommendationTrend.trend[1].buy,
-                sell: result.recommendationTrend.trend[1].sell, hold: result.recommendationTrend.trend[1].buy }})
-        } else if (!result) {
-            return res.json({status: 500, data: ''})
-        }
-    } catch (err) {
-        console.log(err)
-    }
 })

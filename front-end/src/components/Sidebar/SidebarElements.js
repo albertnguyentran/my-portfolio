@@ -3,8 +3,9 @@ import styled from 'styled-components'
 export const portfolioStyle = {
     color: "black",
     textAlign: "left",
-    width: "370px",
+    width: "15rem",
     borderColor: "yellow",
+    fontSize: "1.5rem"
 }
 
 export const container = {
@@ -12,12 +13,16 @@ export const container = {
 }
 
 export const button = {
-    color: "red"
+    color: "red",
+    height: "1.5rem"
 }
 
 export const portfolioContainer = {
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    height: "2rem",
+    padding: "0.5rem 0.5rem 0.5rem 0.5rem",
+    alignItems: "center"
 }
 
 export const SidebarContainer = styled.div`
@@ -27,8 +32,8 @@ export const SidebarContainer = styled.div`
     padding: 40px 20px;
     gap: 68px;
 
-    width: 441px;
-    height: 100%;
+    width: 20%;
+    height: fit-content;
 
     background: #FFFFFF;
 
@@ -50,7 +55,7 @@ export const SidebarTitleWrapper = styled.div`
     padding: 35px 17px;
     gap: 10px;
 
-    width: 434px;
+    width: 20rem;
     height: 142px;
 
     background: #FFFFFF;
@@ -65,9 +70,10 @@ export const SidebarTitleWrapper = styled.div`
 export const SidebarTitleTextWrapper = styled.div`
     box-sizing: border-box;
 
-    width: 307px;
+    width: 10rem;
     height: 73px;
 
+    font-size: 1.5rem;
     background: #FFFFFF;
     border: 1px solid #000000;
 
@@ -82,7 +88,7 @@ export const SidebarTitleTextWrapper = styled.div`
 export const SidebarTitleLogoWrapper = styled.div`
     box-sizing: border-box;
 
-    width: 99px;
+    width: 5rem;
     height: 73px;
 
     background: #FFFFFF;
@@ -100,11 +106,11 @@ export const SidebarTextWrapper = styled.div`
     /* Auto layout */
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
     padding: 16px 30px;
     isolation: isolate;
     text-align: left;
-    width: 427px;
+    width: 20rem;
     height: 247px;
 
     background: #FFFFFF;
@@ -121,7 +127,7 @@ export const SidebarTextTitleWrapper = styled.div`
 
     box-sizing: border-box;
 
-    width: 377px;
+    width: 15rem;
     height: 73px;
 
     background: #FFFFFF;
@@ -134,7 +140,7 @@ export const SidebarTextTitleWrapper = styled.div`
     z-index: 2;
 
     color: rgba(72, 72, 82, 1);
-    font-size: 27px;
+    font-size: 1rem;
 
 `
 
@@ -143,7 +149,7 @@ export const SidebarTextTextWrapper = styled.div`
 
     box-sizing: border-box;
 
-    width: 363px;
+    width: 10rem;
     height: 64px;
 
     background: #FFFFFF;
@@ -155,5 +161,5 @@ export const SidebarTextTextWrapper = styled.div`
     flex-grow: 0;
     z-index: 1;
     color: rgba(0, 0, 0, 0.85);
-    font-size: 22px;
+    font-size: 1rem;
 `

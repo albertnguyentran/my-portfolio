@@ -12,8 +12,8 @@ export const LoginContainer = styled.div`
     padding: 0px;
 
     position: relative;
-    width: 1920px;
-    height: 1080px;
+    width: 100%;
+    height: 100%;
 
     background: #F8F4FA;
     border: 1px solid #000000;

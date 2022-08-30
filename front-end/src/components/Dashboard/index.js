@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react'
-import { button, stockStyle, stockContainer, DashboardContainer, StockContainer, StockWrapper, HeaderWrapper, GraphContainer, GraphWrapper } from './DashboardElements'
+import { titleContainer, button, stockStyle, stockContainer, DashboardContainer, StockContainer, StockWrapper, HeaderWrapper, GraphContainer, GraphWrapper } from './DashboardElements'
 import axios from 'axios'
 
 export default function Dashboard(props){
@@ -46,8 +46,6 @@ export default function Dashboard(props){
                 }
             }
 
-
-
             fetchData()
             fetchIndex()
 
@@ -86,50 +84,18 @@ export default function Dashboard(props){
             const response = await axios.post('http://localhost:5000/api/poststock', {
                 username: props.user.user.username,
                 portfolioName: props.id,
-                stock: {
-                    ticker: stocks.ticker,
-                    amount: stocks.amount,
-                    price: stocks.price
-                }
+                ticker: stocks.ticker,
+                amount: stocks.amount,
+    
             })
             
             if (response.data.status === 200) {
                 alert('ok')
             }
             if (response.data.status === 500) {
-                alert('error adding stocks')
+                alert('error adding stocks, check ticker')
             }
 
-        } catch (err) {
-            console.log(err)
-        }
-    }
-
-    async function yahooStock(stock){
-        try {
-            const result =  await axios.get('http://localhost:5000/api/yahoo', {
-                params: {
-                    stock: stock.ticker
-                }
-            })
-            
-            var flag = true;
-
-            if (result.data.status === 200) {
-                for (let i = 0; i < yahooStocks.length; i++) {
-                    if (yahooStocks[i].ticker === (result.data.data.ticker) && yahooStocks[i].price === (result.data.data.price)){
-                        flag = false;
-                        break;
-                    }
-
-                }
-
-            if (flag){
-                setYahooStocks(yahooStocks => [...yahooStocks, result.data.data])
-            }
-            
-            console.log(yahooStocks)
-            }
         } catch (err) {
             console.log(err)
         }
@@ -140,8 +106,8 @@ export default function Dashboard(props){
     //console.log(portfolioIndex)
     if (user.user.portfolios[portfolioIndex]) {
         var arr = user.user.portfolios[portfolioIndex].stocks
-        var renderedOutput = arr.map(item =>  <div style={stockContainer}> <div style={stockStyle}> {item.ticker} </div> <div style={stockStyle}> {item.amount} </div> <div style={stockStyle}> {item.price} </div> <div stockItem={item} onClick={() => deleteStock(item)} style={button}>X</div> </div>)
-        //var yahooStock = arr.map(item => yahooStock(item))
+        var renderedOutput = arr.map(item =>  <div style={stockContainer}> <div style={stockStyle}> {item.ticker} </div> <div style={stockStyle}> {item.amount} </div> <div style={stockStyle}> {item.price} </div> 
+        <div style={stockStyle}>{item.marketValue}</div><div stockItem={item} onClick={() => deleteStock(item)} style={button}>X</div> </div>)
     }
 
     return (
@@ -149,12 +115,16 @@ export default function Dashboard(props){
 
             <StockContainer>
 
-                <StockWrapper>
-                    <div>Ticker</div>
-                    <div>Amount</div>
-                    <div>Price</div>
-                </StockWrapper>
-                
+                <div style={titleContainer}>
+                    <div style={stockStyle}>Ticker</div>
+                    <div style={stockStyle}>Amount</div>
+                    <div style={stockStyle}>Price</div>
+                    <div style={stockStyle}>Value</div>
+                    <div style={stockStyle}>Buy</div>
+                    <div style={stockStyle}>Hold</div>
+                    <div style={stockStyle}>Sell</div>
+                </div>
+
                 {renderedOutput}
 
                 <StockWrapper>

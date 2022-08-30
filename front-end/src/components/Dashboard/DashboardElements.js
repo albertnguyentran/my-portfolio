@@ -1,5 +1,12 @@
 import styled from 'styled-components'
 
+export const titleContainer = {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingLeft: '40px',
+}
 export const button = {
     color: "red",
     width: "400px",
@@ -7,18 +14,24 @@ export const button = {
 }
 
 export const stockContainer = {
-    display: 'flex',
+    /*display: 'flex',
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    paddingLeft: '40px',
+    paddingLeft: '40px',*/
 
+    display: "grid",
+    gridTemplateColumns: "10rem 10rem 10rem 10rem 10rem 10rem 10rem",
+    backgroundColor: "#2196F3",
+    padding: "10px"
 }
 
 export const stockStyle = {
     color: "black",
     textAlign: "left",
-    width: "430px",
     borderColor: "yellow",
+    fontSize: "1.5rem",
+    padding: "0rem 2rem 0rem 0rem"
 }
 
 export const DashboardContainer = styled.div`
@@ -45,7 +58,7 @@ export const StockContainer = styled.div`
     padding: 40px;
     gap: 10px;
 
-    width: 1507px;
+    width: 55rem;
     height: fit-content;
 
     background: #D159FB;
@@ -57,7 +70,7 @@ export const StockContainer = styled.div`
     flex-grow: 0;
 `
 export const StockWrapper = styled.div`
-    width: 1000px;
+    width: 55rem;
     height: 56px;
 
     background: #FFFFFF;
@@ -77,7 +90,7 @@ export const HeaderWrapper = styled.div`
     padding: 10px 40px;
     gap: 10px;
 
-    width: 1207px;
+    width: 55rem;
     height: 48px;
 
     background: #D25D5D;
@@ -96,7 +109,7 @@ export const GraphContainer = styled.div`
     padding: 40px;
     gap: 10px;
 
-    width: 1207px;
+    width: 55rem;
     height: 444px;
 
     background: #BED0F3;
@@ -109,7 +122,7 @@ export const GraphContainer = styled.div`
 `
 
 export const GraphWrapper = styled.div`
-    width: 560px;
+    width: 27.5rem;
     height: 364px;
 
     background: #FFFFFF;

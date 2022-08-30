@@ -63,7 +63,7 @@ export default function Sidebar(props){
     }, [user, portfolioName]);
 
     var arr = user.user.portfolios
-    var renderedOutput = arr.map(item => <div style={portfolioContainer}> <div key={item.portfolioName} style={portfolioStyle} onClick={handleClick}> {item.portfolioName} </div> <div name={item.portfolioname} onClick={() => deletePortfolio(item.portfolioName)} style={button}>X</div></div>)
+    var renderedOutput = arr.map(item => <div style={portfolioContainer}> <div key={item.portfolioName} style={portfolioStyle} onClick={handleClick}> {item.portfolioName} </div> <button name={item.portfolioname} onClick={() => deletePortfolio(item.portfolioName)} style={button}>X</button></div>)
 
     return (
     <>
@@ -89,17 +89,6 @@ export default function Sidebar(props){
                 <SidebarTextTextWrapper>Brokerage account</SidebarTextTextWrapper>
             </SidebarTextWrapper>
 
-            <SidebarTextWrapper>
-                <SidebarTextTitleWrapper>INSIGHTS</SidebarTextTitleWrapper>
-                <SidebarTextTextWrapper>Yo</SidebarTextTextWrapper>
-                <SidebarTextTextWrapper>Yo</SidebarTextTextWrapper>
-            </SidebarTextWrapper>
-
-            <SidebarTextWrapper>
-                <SidebarTextTitleWrapper></SidebarTextTitleWrapper>
-                <SidebarTextTitleWrapper></SidebarTextTitleWrapper>
-                <SidebarTextTitleWrapper></SidebarTextTitleWrapper>
-            </SidebarTextWrapper>
 
         </SidebarContainer>
     </>
