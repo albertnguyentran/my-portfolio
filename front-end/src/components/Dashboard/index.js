@@ -9,7 +9,6 @@ export default function Dashboard(props){
     const [update, setUpdate] = useState()
     const [portfolioIndex, setIndex] = useState()
     const [stocks, setStocks] = useState({ticker: '', amount: '', date: '', price: ''})
-    const [yahooStocks, setYahooStocks] = useState([{ticker: '', price: '', buy: '', sell: '', hold: ''}])
 
     const handleChange = (e) => {
         setStocks({...stocks, [e.target.name]: e.target.value})
@@ -78,6 +77,23 @@ export default function Dashboard(props){
         }
     }
 
+    async function updateStock(stock){
+        try{
+            const response = await axios.post('http://localhost:5000/api/updatestock', {
+                username: user.user.username,
+                portfolioName: props.id,
+                stock: stock
+            })
+            
+            if (response.data.status === 200) {
+                alert('succesfully updated stock')
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+
     //Post stock to respective portfolio
     async function handleSubmit(event){
         try {
@@ -107,7 +123,8 @@ export default function Dashboard(props){
     if (user.user.portfolios[portfolioIndex]) {
         var arr = user.user.portfolios[portfolioIndex].stocks
         var renderedOutput = arr.map(item =>  <div style={stockContainer}> <div style={stockStyle}> {item.ticker} </div> <div style={stockStyle}> {item.amount} </div> <div style={stockStyle}> {item.price} </div> 
-        <div style={stockStyle}>{item.marketValue}</div><div stockItem={item} onClick={() => deleteStock(item)} style={button}>X</div> </div>)
+        <div style={stockStyle}>{item.marketValue}</div><div style={stockStyle}>{item.buy}</div><div style={stockStyle}>{item.hold}</div><div style={stockStyle}>{item.sell}</div>
+        <div stockItem={item} onClick={() => deleteStock(item)} style={button}>X</div><div stockItem={item} onClick={() => updateStock(item)} style={button}>O</div> </div>)
     }
 
     return (
