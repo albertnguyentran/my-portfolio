@@ -293,3 +293,40 @@ app.post('/api/deleteportfolio', async (req, res) => {
     }
 
 })
+
+
+app.post('/api/updatestock', async (req, res) => {
+    try {
+        
+        const result = await quote(req.body.stock.ticker, ['summaryDetail', 'recommendationTrend'])
+
+        const response = await UserModel.updateOne(
+            {
+                "username": req.body.username
+            },
+            { 
+                $set: {
+                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].price": result.summaryDetail.previousClose,
+                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].marketValue": (Math.round(req.body.stock.amount * result.summaryDetail.previousClose)),
+                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].buy": result.recommendationTrend.trend[1].buy,
+                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].hold": result.recommendationTrend.trend[1].hold,
+                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].sell": result.recommendationTrend.trend[1].sell
+                }
+            },
+            {
+                "arrayFilters": [
+                    {"updatePortfolio.portfolioName": req.body.portfolioName},
+                    {"updateStocks._id": req.body.stock._id}
+                ]
+            }
+        )
+
+        if (response) {
+            return res.json({status: 200})
+        } else {
+            return res.json({status: 500})
+        }
+    } catch (err) {
+        console.log(err)
+    }
+})
