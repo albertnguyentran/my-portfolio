@@ -4,19 +4,18 @@ export const AboutWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 75px 100px;
+    padding: 75px;
     gap: 10px;
 
-    width: 100%;
-    height: 100%;
-
+    width: 80%;
+    height: fit-content;
     background: #E9F0EC;
 
     /* Inside auto layout */
+
     flex: none;
     order: 1;
-    align-self: stretch;
-    flex-grow: 1;
+    flex-grow: 0;
 `
 
 export const AboutHeader = styled.div`
@@ -26,7 +25,7 @@ align-items: flex-start;
 padding: 40px;
 gap: 10px;
 
-width: 1279px;
+width: 400px;
 height: 178px;
 
 background: #DE8888;

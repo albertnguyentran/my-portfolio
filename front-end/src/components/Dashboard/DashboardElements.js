@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 
 export const titleContainer = {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingLeft: '40px',
+    display: "grid",
+    gridTemplateColumns: "8rem 8rem 8rem 8rem 8rem 8rem 8rem 8rem 8rem",
+    backgroundColor: "#2196F3",
+    padding: "10px",
+    width: "70rem"
 }
 export const button = {
     color: "red",
@@ -21,9 +21,10 @@ export const stockContainer = {
     paddingLeft: '40px',*/
 
     display: "grid",
-    gridTemplateColumns: "10rem 10rem 10rem 10rem 10rem 10rem 10rem",
+    gridTemplateColumns: "8rem 8rem 8rem 8rem 8rem 8rem 8rem 8rem 8rem",
     backgroundColor: "#2196F3",
-    padding: "10px"
+    padding: "10px",
+    width: "70rem"
 }
 
 export const stockStyle = {
@@ -31,7 +32,7 @@ export const stockStyle = {
     textAlign: "left",
     borderColor: "yellow",
     fontSize: "1.5rem",
-    padding: "0rem 2rem 0rem 0rem"
+    padding: "0rem 0rem 0rem 0rem"
 }
 
 export const DashboardContainer = styled.div`
@@ -41,7 +42,7 @@ export const DashboardContainer = styled.div`
     padding: 75px;
     gap: 10px;
 
-    width: 100%;
+    width: 80%;
     height: fit-content;
     background: #E9F0EC;
 
@@ -58,7 +59,7 @@ export const StockContainer = styled.div`
     padding: 40px;
     gap: 10px;
 
-    width: 55rem;
+    width: 75rem;
     height: fit-content;
 
     background: #D159FB;

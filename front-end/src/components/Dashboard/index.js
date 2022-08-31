@@ -124,7 +124,7 @@ export default function Dashboard(props){
         var arr = user.user.portfolios[portfolioIndex].stocks
         var renderedOutput = arr.map(item =>  <div style={stockContainer}> <div style={stockStyle}> {item.ticker} </div> <div style={stockStyle}> {item.amount} </div> <div style={stockStyle}> {item.price} </div> 
         <div style={stockStyle}>{item.marketValue}</div><div style={stockStyle}>{item.buy}</div><div style={stockStyle}>{item.hold}</div><div style={stockStyle}>{item.sell}</div>
-        <div stockItem={item} onClick={() => deleteStock(item)} style={button}>X</div><div stockItem={item} onClick={() => updateStock(item)} style={button}>O</div> </div>)
+        <div stockItem={item} onClick={() => updateStock(item)} style={button}>O</div> <div stockItem={item} onClick={() => deleteStock(item)} style={button}>X</div> </div>)
     }
 
     return (
@@ -140,6 +140,8 @@ export default function Dashboard(props){
                     <div style={stockStyle}>Buy</div>
                     <div style={stockStyle}>Hold</div>
                     <div style={stockStyle}>Sell</div>
+                    <div style={stockStyle}>Update</div>
+                    <div style={stockStyle}>Delete</div>
                 </div>
 
                 {renderedOutput}
