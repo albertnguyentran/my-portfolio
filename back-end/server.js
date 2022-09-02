@@ -300,6 +300,7 @@ app.post('/api/updatestock', async (req, res) => {
         
         const result = await quote(req.body.stock.ticker, ['summaryDetail', 'recommendationTrend'])
 
+        console.log(result.recommendationTrend)
         const response = await UserModel.updateOne(
             {
                 "username": req.body.username
@@ -308,9 +309,9 @@ app.post('/api/updatestock', async (req, res) => {
                 $set: {
                     "portfolios.$[updatePortfolio].stocks.$[updateStocks].price": result.summaryDetail.previousClose,
                     "portfolios.$[updatePortfolio].stocks.$[updateStocks].marketValue": (Math.round(req.body.stock.amount * result.summaryDetail.previousClose)),
-                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].buy": result.recommendationTrend.trend[1].buy,
-                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].hold": result.recommendationTrend.trend[1].hold,
-                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].sell": result.recommendationTrend.trend[1].sell
+                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].buy": result.recommendationTrend.trend[req.body.index].buy,
+                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].hold": result.recommendationTrend.trend[req.body.index].hold,
+                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].sell": result.recommendationTrend.trend[req.body.index].sell
                 }
             },
             {

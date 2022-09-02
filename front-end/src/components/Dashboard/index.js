@@ -9,6 +9,7 @@ export default function Dashboard(props){
     const [update, setUpdate] = useState()
     const [portfolioIndex, setIndex] = useState()
     const [stocks, setStocks] = useState({ticker: '', amount: '', date: '', price: ''})
+  
 
     const handleChange = (e) => {
         setStocks({...stocks, [e.target.name]: e.target.value})
@@ -82,7 +83,59 @@ export default function Dashboard(props){
             const response = await axios.post('http://localhost:5000/api/updatestock', {
                 username: user.user.username,
                 portfolioName: props.id,
-                stock: stock
+                stock: stock,
+                index: 0
+            })
+            
+            if (response.data.status === 200) {
+                alert('succesfully updated stock')
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    async function updateStock1(stock){
+        try{
+            const response = await axios.post('http://localhost:5000/api/updatestock', {
+                username: user.user.username,
+                portfolioName: props.id,
+                stock: stock,
+                index: 1
+            })
+            
+            if (response.data.status === 200) {
+                alert('succesfully updated stock')
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    async function updateStock2(stock){
+        try{
+            const response = await axios.post('http://localhost:5000/api/updatestock', {
+                username: user.user.username,
+                portfolioName: props.id,
+                stock: stock,
+                index: 2
+            })
+            
+            if (response.data.status === 200) {
+                alert('succesfully updated stock')
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    async function updateStock3(stock){
+        try{
+            const response = await axios.post('http://localhost:5000/api/updatestock', {
+                username: user.user.username,
+                portfolioName: props.id,
+                stock: stock,
+                index: 3
             })
             
             if (response.data.status === 200) {
@@ -124,7 +177,9 @@ export default function Dashboard(props){
         var arr = user.user.portfolios[portfolioIndex].stocks
         var renderedOutput = arr.map(item =>  <div style={stockContainer}> <div style={stockStyle}> {item.ticker} </div> <div style={stockStyle}> {item.amount} </div> <div style={stockStyle}> {item.price} </div> 
         <div style={stockStyle}>{item.marketValue}</div><div style={stockStyle}>{item.buy}</div><div style={stockStyle}>{item.hold}</div><div style={stockStyle}>{item.sell}</div>
-        <div stockItem={item} onClick={() => updateStock(item)} style={button}>O</div> <div stockItem={item} onClick={() => deleteStock(item)} style={button}>X</div> </div>)
+        <div> <div stockItem={item}  onClick={() => updateStock(item)} style={button}>O</div> <div stockItem={item}  onClick={() => updateStock1(item)} style={button}>1</div> 
+        <div stockItem={item} onClick={() => updateStock2(item)} style={button}>2</div> <div stockItem={item} onClick={() => updateStock3(item)} style={button}>3</div>
+        </div> <div stockItem={item} onClick={() => deleteStock(item)} style={button}>X</div> </div>)
     }
 
     return (
