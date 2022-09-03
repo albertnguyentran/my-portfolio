@@ -309,9 +309,9 @@ app.post('/api/updatestock', async (req, res) => {
                 $set: {
                     "portfolios.$[updatePortfolio].stocks.$[updateStocks].price": result.summaryDetail.previousClose,
                     "portfolios.$[updatePortfolio].stocks.$[updateStocks].marketValue": (Math.round(req.body.stock.amount * result.summaryDetail.previousClose)),
-                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].buy": result.recommendationTrend.trend[req.body.index].buy,
+                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].buy": (2*(result.recommendationTrend.trend[req.body.index].strongBuy) + result.recommendationTrend.trend[req.body.index].buy),
                     "portfolios.$[updatePortfolio].stocks.$[updateStocks].hold": result.recommendationTrend.trend[req.body.index].hold,
-                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].sell": result.recommendationTrend.trend[req.body.index].sell
+                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].sell": (2*(result.recommendationTrend.trend[req.body.index].strongSell) + result.recommendationTrend.trend[req.body.index].sell)
                 }
             },
             {

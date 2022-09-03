@@ -2,15 +2,21 @@ import styled from 'styled-components'
 
 export const titleContainer = {
     display: "grid",
-    gridTemplateColumns: "8rem 8rem 8rem 8rem 8rem 8rem 8rem 8rem 8rem",
+    gridTemplateColumns: "8rem 8rem 8rem 8rem 6rem 6rem 10rem 10rem",
     backgroundColor: "#2196F3",
     padding: "10px",
     width: "70rem"
 }
 export const button = {
     color: "red",
-    width: "400px",
+    width: "2rem",
+    height: "2rem",
     textAlign: "left"
+}
+
+export const buttonContainer = {
+    display: "flex",
+    flexDirection: "row"
 }
 
 export const stockContainer = {
@@ -21,7 +27,7 @@ export const stockContainer = {
     paddingLeft: '40px',*/
 
     display: "grid",
-    gridTemplateColumns: "8rem 8rem 8rem 8rem 8rem 8rem 8rem 8rem 8rem",
+    gridTemplateColumns: "8rem 8rem 8rem 8rem 6rem 6rem 8rem 8rem 0rem",
     backgroundColor: "#2196F3",
     padding: "10px",
     width: "70rem"
@@ -59,7 +65,7 @@ export const StockContainer = styled.div`
     padding: 40px;
     gap: 10px;
 
-    width: 75rem;
+    width: 69rem;
     height: fit-content;
 
     background: #D159FB;
@@ -110,7 +116,7 @@ export const GraphContainer = styled.div`
     padding: 40px;
     gap: 10px;
 
-    width: 55rem;
+    width: 69rem;
     height: 444px;
 
     background: #BED0F3;

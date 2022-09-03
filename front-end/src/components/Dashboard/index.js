@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react'
-import { titleContainer, button, stockStyle, stockContainer, DashboardContainer, StockContainer, StockWrapper, HeaderWrapper, GraphContainer, GraphWrapper } from './DashboardElements'
+import { buttonContainer, titleContainer, button, stockStyle, stockContainer, DashboardContainer, StockContainer, StockWrapper, HeaderWrapper, GraphContainer, GraphWrapper } from './DashboardElements'
 import axios from 'axios'
 
 export default function Dashboard(props){
@@ -177,9 +177,12 @@ export default function Dashboard(props){
         var arr = user.user.portfolios[portfolioIndex].stocks
         var renderedOutput = arr.map(item =>  <div style={stockContainer}> <div style={stockStyle}> {item.ticker} </div> <div style={stockStyle}> {item.amount} </div> <div style={stockStyle}> {item.price} </div> 
         <div style={stockStyle}>{item.marketValue}</div><div style={stockStyle}>{item.buy}</div><div style={stockStyle}>{item.hold}</div><div style={stockStyle}>{item.sell}</div>
-        <div> <div stockItem={item}  onClick={() => updateStock(item)} style={button}>O</div> <div stockItem={item}  onClick={() => updateStock1(item)} style={button}>1</div> 
-        <div stockItem={item} onClick={() => updateStock2(item)} style={button}>2</div> <div stockItem={item} onClick={() => updateStock3(item)} style={button}>3</div>
-        </div> <div stockItem={item} onClick={() => deleteStock(item)} style={button}>X</div> </div>)
+        <div style={buttonContainer}> <button stockItem={item}  onClick={() => updateStock(item)} style={button}>O</button> <button stockItem={item}  onClick={() => updateStock1(item)} style={button}>-1</button> 
+        <button stockItem={item} onClick={() => updateStock2(item)} style={button}>-2</button> <button stockItem={item} onClick={() => updateStock3(item)} style={button}>-3</button>
+        </div> <button stockItem={item} onClick={() => deleteStock(item)} style={button}>X</button> </div>)
+
+
+        var renderedGraph = 'a'
     }
 
     return (
@@ -196,7 +199,6 @@ export default function Dashboard(props){
                     <div style={stockStyle}>Hold</div>
                     <div style={stockStyle}>Sell</div>
                     <div style={stockStyle}>Update</div>
-                    <div style={stockStyle}>Delete</div>
                 </div>
 
                 {renderedOutput}
