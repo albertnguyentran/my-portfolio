@@ -8,6 +8,12 @@ const Stock = new mongoose.Schema({
     amount: Number,
     price: Number,
     marketValue: Number,
+    oneprice: Number,
+    twoprice: Number,
+    threeprice: Number,
+    fourprice: Number,
+    fiveprice: Number,
+    sixprice: Number,
     buy: Number,
     hold: Number,
     sell: Number 

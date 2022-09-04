@@ -1,6 +1,9 @@
 import React, {useEffect, useState, useRef} from 'react'
-import { buttonContainer, titleContainer, button, stockStyle, stockContainer, DashboardContainer, StockContainer, StockWrapper, HeaderWrapper, GraphContainer, GraphWrapper } from './DashboardElements'
+import { chartStyle,buttonContainer, titleContainer, button, stockStyle, stockContainer, DashboardContainer, StockContainer, StockWrapper, HeaderWrapper, GraphContainer, GraphWrapper } from './DashboardElements'
 import axios from 'axios'
+import {LineChart} from '../ChartsJS'
+import {Line, Bar, Chart} from 'react-chartjs-2'
+
 
 export default function Dashboard(props){
 
@@ -181,15 +184,17 @@ export default function Dashboard(props){
         <button stockItem={item} onClick={() => updateStock2(item)} style={button}>-2</button> <button stockItem={item} onClick={() => updateStock3(item)} style={button}>-3</button>
         </div> <button stockItem={item} onClick={() => deleteStock(item)} style={button}>X</button> </div>)
 
-
-        var renderedGraph = 'a'
+        var renderedChart = arr.map(item=> 
+            <div style={chartStyle}> 
+                <LineChart item={item}/>
+            </div>)
     }
 
     return (
         <DashboardContainer>
 
-            <StockContainer>
 
+            <StockContainer>
                 <div style={titleContainer}>
                     <div style={stockStyle}>Ticker</div>
                     <div style={stockStyle}>Amount</div>
@@ -215,12 +220,8 @@ export default function Dashboard(props){
             </StockContainer>
             <HeaderWrapper></HeaderWrapper>
             <GraphContainer>
-                <GraphWrapper></GraphWrapper>
-                <GraphWrapper></GraphWrapper>
-            </GraphContainer>
-            <GraphContainer>
-                <GraphWrapper></GraphWrapper>
-                <GraphWrapper></GraphWrapper>
+                {renderedChart}
+
             </GraphContainer>
         </DashboardContainer>
     )

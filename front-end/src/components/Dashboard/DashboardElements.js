@@ -1,5 +1,10 @@
 import styled from 'styled-components'
 
+export const chartStyle = {
+    width: "20rem",
+    height: "20rem"
+
+}
 export const titleContainer = {
     display: "grid",
     gridTemplateColumns: "8rem 8rem 8rem 8rem 6rem 6rem 10rem 10rem",
