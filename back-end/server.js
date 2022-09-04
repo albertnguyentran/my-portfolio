@@ -173,6 +173,17 @@ app.post('/api/poststock', async (req, res) => {
     try {
         const result = await quote(req.body.ticker, ['summaryDetail', 'recommendationTrend'])
 
+        var today = new Date()
+        var currentMonth = String(today.getMonth() + 1).padStart(2, '0')
+        var lastMonth = currentMonth - 5
+    
+        const historical = await yahooFinance.historical({
+            symbol: req.body.ticker,
+            from: '2022-' + lastMonth,
+            to: '2022-' + currentMonth,
+            period: 'm'
+        })
+        
         if (!result) {
             return res.json({status: 500})
 
@@ -182,10 +193,15 @@ app.post('/api/poststock', async (req, res) => {
                 amount: req.body.amount,
                 price: result.summaryDetail.previousClose,
                 marketValue: (Math.round(req.body.amount * result.summaryDetail.previousClose)),
+                oneprice: (Math.round(historical[0].close)),
+                twoprice: (Math.round(historical[1].close)),
+                threeprice: (Math.round(historical[2].close)),
+                fourprice: (Math.round(historical[3].close)),
+                fiveprice: (Math.round(historical[4].close)),
+                sixprice: (Math.round(historical[5].close)),
                 buy: result.recommendationTrend.trend[1].buy,
                 hold: result.recommendationTrend.trend[1].hold,
                 sell: result.recommendationTrend.trend[1].sell
-    
             }
     
             const insertStock = await UserModel.updateOne(
@@ -217,6 +233,8 @@ app.post('/api/poststock', async (req, res) => {
 })
 
 app.post('/api/postportfolio', async (req, res) => {
+
+
     try {
         const insertPortfolio = await UserModel.updateOne(
             {
@@ -300,7 +318,17 @@ app.post('/api/updatestock', async (req, res) => {
         
         const result = await quote(req.body.stock.ticker, ['summaryDetail', 'recommendationTrend'])
 
-        console.log(result.recommendationTrend)
+        var today = new Date()
+        var currentMonth = String(today.getMonth() + 1).padStart(2, '0')
+        var lastMonth = currentMonth - 5
+        
+        const historical = await yahooFinance.historical({
+            symbol: req.body.stock.ticker,
+            from: '2022-' + lastMonth,
+            to: '2022-' + currentMonth,
+            period: 'm'
+        })
+        
         const response = await UserModel.updateOne(
             {
                 "username": req.body.username
@@ -311,7 +339,13 @@ app.post('/api/updatestock', async (req, res) => {
                     "portfolios.$[updatePortfolio].stocks.$[updateStocks].marketValue": (Math.round(req.body.stock.amount * result.summaryDetail.previousClose)),
                     "portfolios.$[updatePortfolio].stocks.$[updateStocks].buy": (2*(result.recommendationTrend.trend[req.body.index].strongBuy) + result.recommendationTrend.trend[req.body.index].buy),
                     "portfolios.$[updatePortfolio].stocks.$[updateStocks].hold": result.recommendationTrend.trend[req.body.index].hold,
-                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].sell": (2*(result.recommendationTrend.trend[req.body.index].strongSell) + result.recommendationTrend.trend[req.body.index].sell)
+                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].sell": (2*(result.recommendationTrend.trend[req.body.index].strongSell) + result.recommendationTrend.trend[req.body.index].sell),
+                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].oneprice": (Math.round(historical[0].close)),
+                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].twoprice": (Math.round(historical[1].close)),
+                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].threeprice": (Math.round(historical[2].close)),
+                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].fourprice": (Math.round(historical[3].close)),
+                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].fiveprice": (Math.round(historical[4].close)),
+                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].sixprice": (Math.round(historical[5].close)),
                 }
             },
             {
