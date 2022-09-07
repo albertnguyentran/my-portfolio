@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react'
-import { chartStyle,buttonContainer, titleContainer, button, stockStyle, stockContainer, DashboardContainer, StockContainer, StockWrapper, HeaderWrapper, GraphContainer, GraphWrapper } from './DashboardElements'
+import { increasedStyle, decreasedStyle, infoStyle, chartStyle,buttonContainer, titleContainer, button, stockStyle, stockContainer, DashboardContainer, StockContainer, StockWrapper, HeaderWrapper, GraphContainer, GraphWrapper } from './DashboardElements'
 import axios from 'axios'
 import {LineChart} from '../ChartsJS'
 import {Line, Bar, Chart} from 'react-chartjs-2'
@@ -158,6 +158,7 @@ export default function Dashboard(props){
                 portfolioName: props.id,
                 ticker: stocks.ticker,
                 amount: stocks.amount,
+                price: stocks.price
     
             })
             
@@ -178,7 +179,7 @@ export default function Dashboard(props){
     //console.log(portfolioIndex)
     if (user.user.portfolios[portfolioIndex]) {
         var arr = user.user.portfolios[portfolioIndex].stocks
-        var renderedOutput = arr.map(item =>  <div style={stockContainer}> <div style={stockStyle}> {item.ticker} </div> <div style={stockStyle}> {item.amount} </div> <div style={stockStyle}> {item.price} </div> 
+        var renderedOutput = arr.map(item =>  <div style={stockContainer}> <div style={stockStyle}> {item.ticker} </div> <div style={stockStyle}> {item.amount} </div> <div style={stockStyle}> {item.currentprice} </div> 
         <div style={stockStyle}>{item.marketValue}</div><div style={stockStyle}>{item.buy}</div><div style={stockStyle}>{item.hold}</div><div style={stockStyle}>{item.sell}</div>
         <div style={buttonContainer}> <button stockItem={item}  onClick={() => updateStock(item)} style={button}>O</button> <button stockItem={item}  onClick={() => updateStock1(item)} style={button}>-1</button> 
         <button stockItem={item} onClick={() => updateStock2(item)} style={button}>-2</button> <button stockItem={item} onClick={() => updateStock3(item)} style={button}>-3</button>
@@ -187,7 +188,15 @@ export default function Dashboard(props){
         var renderedChart = arr.map(item=> 
             <div style={chartStyle}> 
                 <LineChart item={item}/>
+                
+                <div style={infoStyle}>
+                    {item.currentprice >= item.price ? 
+                    <div> <div style={increasedStyle}>Increased {Math.round((item.currentprice/item.price)*10)}% since you bought it at {item.price}</div> </div> 
+                    : <div><div style={decreasedStyle}>Decreased {Math.round((item.currentprice/item.price)*10)}% since you bought it at {item.price}</div></div>}
+                </div>
             </div>)
+
+        //ticker, amountm pr
     }
 
     return (
@@ -221,7 +230,6 @@ export default function Dashboard(props){
             <HeaderWrapper></HeaderWrapper>
             <GraphContainer>
                 {renderedChart}
-
             </GraphContainer>
         </DashboardContainer>
     )

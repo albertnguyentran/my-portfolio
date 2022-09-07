@@ -176,13 +176,14 @@ app.post('/api/poststock', async (req, res) => {
         var today = new Date()
         var currentMonth = String(today.getMonth() + 1).padStart(2, '0')
         var lastMonth = currentMonth - 5
-    
+
         const historical = await yahooFinance.historical({
             symbol: req.body.ticker,
             from: '2022-' + lastMonth,
             to: '2022-' + currentMonth,
             period: 'm'
         })
+
         
         if (!result) {
             return res.json({status: 500})
@@ -191,9 +192,10 @@ app.post('/api/poststock', async (req, res) => {
             const stock = {
                 ticker: req.body.ticker,
                 amount: req.body.amount,
-                price: result.summaryDetail.previousClose,
+                price: req.body.price,
+                currentprice: result.summaryDetail.previousClose,
                 marketValue: (Math.round(req.body.amount * result.summaryDetail.previousClose)),
-                oneprice: (Math.round(historical[0].close)),
+                oneprice: Math.round(historical[0].close),
                 twoprice: (Math.round(historical[1].close)),
                 threeprice: (Math.round(historical[2].close)),
                 fourprice: (Math.round(historical[3].close)),
@@ -201,9 +203,11 @@ app.post('/api/poststock', async (req, res) => {
                 sixprice: (Math.round(historical[5].close)),
                 buy: result.recommendationTrend.trend[1].buy,
                 hold: result.recommendationTrend.trend[1].hold,
-                sell: result.recommendationTrend.trend[1].sell
+                sell: result.recommendationTrend.trend[1].sell,
+                lastmonth: '2022-' + lastMonth,
+                currentmonth: '2022-' + currentMonth
             }
-    
+
             const insertStock = await UserModel.updateOne(
                 {
                     "username": req.body.username
@@ -221,7 +225,7 @@ app.post('/api/poststock', async (req, res) => {
             )
     
             if (insertStock) {
-                return res.json({status: 220})
+                return res.json({status: 200})
             } else {
                 return res.json({status: 500})
             }
@@ -276,7 +280,6 @@ app.post('/api/deletestock', async (req, res) => {
         )
 
         if (response) {
-            console.log('works')
             return res.json({status: 200})
         } else {
             return res.json({status: 500})
@@ -335,7 +338,7 @@ app.post('/api/updatestock', async (req, res) => {
             },
             { 
                 $set: {
-                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].price": result.summaryDetail.previousClose,
+                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].currentprice": result.summaryDetail.previousClose,
                     "portfolios.$[updatePortfolio].stocks.$[updateStocks].marketValue": (Math.round(req.body.stock.amount * result.summaryDetail.previousClose)),
                     "portfolios.$[updatePortfolio].stocks.$[updateStocks].buy": (2*(result.recommendationTrend.trend[req.body.index].strongBuy) + result.recommendationTrend.trend[req.body.index].buy),
                     "portfolios.$[updatePortfolio].stocks.$[updateStocks].hold": result.recommendationTrend.trend[req.body.index].hold,
@@ -346,6 +349,8 @@ app.post('/api/updatestock', async (req, res) => {
                     "portfolios.$[updatePortfolio].stocks.$[updateStocks].fourprice": (Math.round(historical[3].close)),
                     "portfolios.$[updatePortfolio].stocks.$[updateStocks].fiveprice": (Math.round(historical[4].close)),
                     "portfolios.$[updatePortfolio].stocks.$[updateStocks].sixprice": (Math.round(historical[5].close)),
+                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].lastmonth": '2022-' + lastMonth,
+                    "portfolios.$[updatePortfolio].stocks.$[updateStocks].currentmonth": '2022-' + currentMonth
                 }
             },
             {

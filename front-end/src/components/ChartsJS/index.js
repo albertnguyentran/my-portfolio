@@ -8,26 +8,41 @@ const chartStyle = {
     color: "green"
 }
 
-export const LineChart = ({item}) => {
+
+export function LineChart (props) {
+
     return (
-        <>
+        <div>
             <Line
                 data={{
-                    labels: ['Red', 'Blue'],
+                    labels: [props.item.lastmonth, '-4month','-3month','-2month','-1month', props.item.currentmonth],
                     datasets: [{
-                        data: [4, 3]
+                        label: props.item.ticker,
+                        data: [props.item.oneprice, props.item.twoprice, props.item.threeprice, props.item.fourprice, props.item.fiveprice, props.item.sixprice]
                     }]
                 }}
 
-                height={10}
-                width={10}
+                height={300}
+                width={600}
                 options={{
-                    maintainAspectRatio: true
+                    scales: {
+                        y: {
+                            ticks: {
+                                min: 0,
+                                // Include a dollar sign in the ticks
+                                callback: function(value, index, ticks) {
+                                    return '$' + value;                                
+                                }
+                            }
+                        }
+                    }
                 }}
             />
-        </>
+
+        </div>
     )
 }
+
 
 
 

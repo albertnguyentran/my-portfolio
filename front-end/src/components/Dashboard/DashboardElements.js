@@ -1,7 +1,24 @@
 import styled from 'styled-components'
 
+export const increasedStyle = {
+    color: "green",
+    fontSize: "1.5rem"
+}
+
+export const decreasedStyle = {
+    color: "red",
+    fontSize: "1.5rem"
+
+}
+export const infoStyle = {
+    display: "flex",
+    flexDirection: "column"
+}
 export const chartStyle = {
-    width: "20rem",
+    fontSize: "1rem",
+    display: "flex",
+    flexDirection: "row",
+    width: "69rem",
     height: "20rem"
 
 }
@@ -116,13 +133,13 @@ export const HeaderWrapper = styled.div`
 
 export const GraphContainer = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: flex-start;
     padding: 40px;
     gap: 10px;
 
     width: 69rem;
-    height: 444px;
+    height: fit-content;
 
     background: #BED0F3;
 

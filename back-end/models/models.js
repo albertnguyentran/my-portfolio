@@ -7,6 +7,7 @@ const Stock = new mongoose.Schema({
     ticker: String,
     amount: Number,
     price: Number,
+    currentprice: Number,
     marketValue: Number,
     oneprice: Number,
     twoprice: Number,
@@ -16,7 +17,10 @@ const Stock = new mongoose.Schema({
     sixprice: Number,
     buy: Number,
     hold: Number,
-    sell: Number 
+    sell: Number,
+    date: String,
+    lastmonth: String,
+    currentmonth: String
     })
 
 const Portfolio = new mongoose.Schema({
