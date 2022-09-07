@@ -141,7 +141,7 @@ export const GraphContainer = styled.div`
     width: 69rem;
     height: fit-content;
 
-    background: #BED0F3;
+    background-color: #faf2e4;
 
     /* Inside auto layout */
 
