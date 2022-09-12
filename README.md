@@ -21,7 +21,6 @@ Delete with the delete button <br/>
 Input the ticker, # of shares bought and the price you bought it at <br/>
 Info will load in the table above as well as a price chart of the past 6 months <br/>
 
-<br/>
 Value = # of shares * price <br/>
 Buy, hold, sell = fetched analyst recommendations from yahoo-stock-api <br/>
 
