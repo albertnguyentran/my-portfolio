@@ -9,4 +9,4 @@ npm start <br/>
 
 # How to use it
 
-
+![image](https://github.com/albertnguyentran/my-portfolio/blob/main/myportfolio.png)
