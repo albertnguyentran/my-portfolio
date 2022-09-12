@@ -11,13 +11,13 @@ npm start <br/>
 
 ![image](https://github.com/albertnguyentran/my-portfolio/blob/main/myportfolio.png)
 
-**Sidebar** <br/>
+**Sidebar:** <br/>
 Add a portfolio with the input bar <br/>
 Navigate to the portfolio by clicking on it <br/>
 Delete with the delete button <br/>
 
 
-**Dashboard** <br/>
+**Dashboard:** <br/>
 Input the ticker, # of shares bought and the price you bought it at <br/>
 Info will load in the table above as well as a price chart of the past 6 months <br/>
 
@@ -34,7 +34,7 @@ Click the delete button to delete <br/>
 
 # How I made it
 
-**Stack** <br/>
+**Stack:** <br/>
 Database: Mongodb, Mongoose to define object schemas <br/>
 Back-end: Node.JS, Express.JS, yahoo-stock-api <br/>
 Fron-end: React.JS, Chart.JS, axios to make API calls <br/>
