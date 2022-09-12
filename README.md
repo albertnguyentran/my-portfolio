@@ -32,9 +32,8 @@ Click **-2** to update to -2 month data <br/>
 Click **-3** to update to -3 month data <br/>
 Click the delete button to delete <br/>
 
-<br/>
 # What's Next
-<br/>
+
 Add advanced analytics that can be selected to view from a drop-down table
 
 
