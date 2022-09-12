@@ -1,9 +1,12 @@
 # Get Started
-git clone https://github.com/albertnguyen/my-portfolio <br/>
+Clone this repository <br/>
+Open a terminal with the path of the directory you cloned it in <br/>
 cd back-end <br/>
 npm run server <br/>
-cd .. <br/>
+Open another terminal with the main path<br/>
 cd front-end <br/>
 npm start <br/>
+
+# How to use it
 
 
