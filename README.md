@@ -32,6 +32,13 @@ Click **-2** to update to -2 month data <br/>
 Click **-3** to update to -3 month data <br/>
 Click the delete button to delete <br/>
 
+# How I made it
+
+**Stack** <br/>
+Database: Mongodb, Mongoose to define object schemas <br/>
+Back-end: Node.JS, Express.JS, yahoo-stock-api <br/>
+Fron-end: React.JS, Chart.JS, axios to make API calls <br/>
+
 # What's Next
 
 Add advanced analytics that can be selected to view from a drop-down table
