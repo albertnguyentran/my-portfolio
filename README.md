@@ -1,9 +1,9 @@
 # Get Started
-git clone https://github.com/albertnguyen/my-portfolio
-cd back-end
-npm run server
-cd ..
-cd front-end
-npm start
+git clone https://github.com/albertnguyen/my-portfolio <br/>
+cd back-end <br/>
+npm run server <br/>
+cd .. <br/>
+cd front-end <br/>
+npm start <br/>
 
 
