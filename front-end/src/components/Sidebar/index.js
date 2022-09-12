@@ -69,7 +69,7 @@ export default function Sidebar(props){
     <>
         <SidebarContainer>
             <SidebarTitleWrapper>
-                <SidebarTitleTextWrapper>PORTFOLIO</SidebarTitleTextWrapper>
+                <SidebarTitleTextWrapper>MY-PORTFOLIO</SidebarTitleTextWrapper>
                 <SidebarTitleLogoWrapper></SidebarTitleLogoWrapper>
             </SidebarTitleWrapper>
 
@@ -82,13 +82,6 @@ export default function Sidebar(props){
                 <input type="text" name="portfolioName" onChange={handleChange} value={portfolioName.portfolioName}></input>
                 <input type="submit"></input>
             </form>
-
-            <SidebarTextWrapper>
-                <SidebarTextTitleWrapper>MY PORTFOLIO</SidebarTextTitleWrapper>
-                <SidebarTextTextWrapper>RRSP</SidebarTextTextWrapper>
-                <SidebarTextTextWrapper>Brokerage account</SidebarTextTextWrapper>
-            </SidebarTextWrapper>
-
 
         </SidebarContainer>
     </>

@@ -191,8 +191,8 @@ export default function Dashboard(props){
                 
                 <div style={infoStyle}>
                     {item.currentprice >= item.price ? 
-                    <div> <div style={increasedStyle}>Increased {Math.round((item.currentprice/item.price)*10)}% since you bought it at {item.price}</div> </div> 
-                    : <div><div style={decreasedStyle}>Decreased {Math.round((item.currentprice/item.price)*10)}% since you bought it at {item.price}</div></div>}
+                    <div> <div style={increasedStyle}>Increased {Math.round(((item.currentprice-item.price)/(item.price))*100)}% since you bought it at {item.price}</div> </div> 
+                    : <div><div style={decreasedStyle}>Decreased -{Math.round(((item.currentprice-item.price)/(item.price))*100)}% since you bought it at {item.price}</div></div>}
                 </div>
             </div>)
 
@@ -219,15 +219,14 @@ export default function Dashboard(props){
 
                 <StockWrapper>
                     <form onSubmit={handleSubmit}>
-                        <input type="text" name="ticker" onChange={handleChange} value={stocks.ticker}></input>
-                        <input type="text" name="amount" onChange={handleChange} value={stocks.amount}></input>
-                        <input type="text" name="price" onChange={handleChange} value={stocks.price}></input>
+                        <input type="text" placeholder="ticker" name="ticker" onChange={handleChange} value={stocks.ticker}></input>
+                        <input type="text" placeholder="amount" name="amount" onChange={handleChange} value={stocks.amount}></input>
+                        <input type="text" placeholder="price" name="price" onChange={handleChange} value={stocks.price}></input>
                         <input type="submit"></input>
                     </form>
                 </StockWrapper>
 
             </StockContainer>
-            <HeaderWrapper></HeaderWrapper>
             <GraphContainer>
                 {renderedChart}
             </GraphContainer>

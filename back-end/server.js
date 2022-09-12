@@ -24,7 +24,9 @@ const server = http.listen(5000, () => {
 })
 
 //Connect mongoose to mongodb
-const dbUrl = 'mongodb+srv://albertnguyentran:Firehead123!@my-portfolio.u56knxk.mongodb.net/?retryWrites=true&w=majority'
+//.  //username:password@db-url
+
+const dbUrl = 'mongodb+srv://username:password@my-portfolio.u56knxk.mongodb.net/?retryWrites=true&w=majority'
 mongoose.Promise = Promise
 mongoose.connect(dbUrl, (err) => {
     console.log('mongo db connection', err)
@@ -171,6 +173,7 @@ app.get('/api/getindex', async (req, res) => {
 
 app.post('/api/poststock', async (req, res) => {
     try {
+
         const result = await quote(req.body.ticker, ['summaryDetail', 'recommendationTrend'])
 
         var today = new Date()
@@ -182,9 +185,11 @@ app.post('/api/poststock', async (req, res) => {
             from: '2022-' + lastMonth,
             to: '2022-' + currentMonth,
             period: 'm'
+
         })
 
-        
+        console.log(result, today, historical)
+
         if (!result) {
             return res.json({status: 500})
 

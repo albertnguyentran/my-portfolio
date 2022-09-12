@@ -59,7 +59,6 @@ export const SidebarTitleWrapper = styled.div`
     height: 142px;
 
     background: #FFFFFF;
-    border: 1px solid #000000;
 
     /* Inside auto layout */
     flex: none;
@@ -70,12 +69,11 @@ export const SidebarTitleWrapper = styled.div`
 export const SidebarTitleTextWrapper = styled.div`
     box-sizing: border-box;
 
-    width: 10rem;
+    width: 15rem;
     height: 73px;
 
     font-size: 1.5rem;
     background: #FFFFFF;
-    border: 1px solid #000000;
 
     /* Inside auto layout */
     flex: none;
@@ -92,7 +90,6 @@ export const SidebarTitleLogoWrapper = styled.div`
     height: 73px;
 
     background: #FFFFFF;
-    border: 1px solid #000000;
 
     /* Inside auto layout */
     flex: none;

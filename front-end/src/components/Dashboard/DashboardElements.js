@@ -99,7 +99,7 @@ export const StockContainer = styled.div`
     flex-grow: 0;
 `
 export const StockWrapper = styled.div`
-    width: 55rem;
+    width: 35rem;
     height: 56px;
 
     background: #FFFFFF;

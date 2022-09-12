@@ -6,6 +6,9 @@ import {useNavigate} from 'react-router-dom'
 
 export default function Hero(){
 
+    const password = {
+        type: "password"
+    }
     const navigate = useNavigate()
     const [user, setUser] = useState({username: '', password: '', email: ''})
     const usernameRef = useRef(null)
@@ -63,7 +66,7 @@ export default function Hero(){
                     </HeroRightInput>
 
                     <HeroRightInput>
-                        <input ref={passwordRef} type="text" name="password" onChange={handleChange} value={user.password}></input>
+                        <input ref={passwordRef} style={password} type="text" name="password" onChange={handleChange} value={user.password}></input>
                     </HeroRightInput>
 
                     <HeroRightInput>
