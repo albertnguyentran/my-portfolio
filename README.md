@@ -34,6 +34,7 @@ Click the delete button to delete <br/>
 
 <br/>
 # What's Next
+<br/>
 Add advanced analytics that can be selected to view from a drop-down table
 
 
