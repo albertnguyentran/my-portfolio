@@ -35,7 +35,7 @@ Click the delete button to delete <br/>
 **Stack:** <br/>
 Database: Mongodb, Mongoose to define object schemas <br/>
 Back-end: Node.JS, Express.JS, yahoo-stock-api <br/>
-Fron-end: React.JS, Chart.JS, axios to make API calls <br/>
+Front-end: React.JS, Chart.JS, axios to make API calls <br/>
 
 # What's Next
 
