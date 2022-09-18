@@ -39,6 +39,7 @@ Front-end: React.JS, Chart.JS, axios to make API calls <br/>
 
 # What's Next
 
+Make the UI nicer <br/>
 Add advanced analytics that can be selected to view from a drop-down table
 
 
