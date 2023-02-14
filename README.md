@@ -33,13 +33,15 @@ Click the delete button to delete <br/>
 # How I made it
 
 **Stack:** <br/>
-Database: Mongodb, Mongoose to define object schemas <br/>
+Database: Mongodb, Mongoose <br/>
 Back-end: Node.JS, Express.JS, yahoo-stock-api <br/>
-Front-end: React.JS, Chart.JS, axios to make API calls <br/>
+Front-end: React.JS, Chart.JS, axios <br/>
 
 # What's Next
 
 Make the UI nicer <br/>
 Add advanced analytics that can be selected to view from a drop-down table
 
+# Update
+yahoo-stocks-api v1 is deprecated, update to v2 if you want to use this
 
